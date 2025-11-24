@@ -1,37 +1,22 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import LoginView from '../views/LoginView.vue'
-import RegisterView from '../views/RegisterView.vue'
-import DashboardView from '../views/DashboardView.vue'
-import ProfileView from '../views/ProfileView.vue'
+import { createRouter, createWebHistory } from "vue-router";
+
+import Profile from "../views/Profile.vue";
+import Home from "../views/Home.vue";
+import Artikel from "../views/Artikel.vue";
+import Rekomendasi from "../views/Rekomendasi.vue";
+import EditProfile from "../views/EditProfile.vue";
+
+const routes = [
+  { path: "/", component: Home },
+  { path: "/profile", component: Profile },
+  { path: "/edit-profile", component: EditProfile },
+  { path: "/artikel", component: Artikel },
+  { path: "/rekomendasi", component: Rekomendasi }
+];
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      redirect: '/login', // SPA pertama kali ke halaman login
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: LoginView,
-    },
-    {
-      path: '/register',
-      name: 'register',
-      component: RegisterView,
-    },
-    {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: DashboardView,
-    },
-    {
-      path: '/profile',
-      name: 'profile',
-      component: ProfileView,
-    },
-  ],
-})
+  history: createWebHistory(),
+  routes,
+});
 
-export default router
+export default router;
