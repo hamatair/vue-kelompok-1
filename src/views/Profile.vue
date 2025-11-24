@@ -79,7 +79,7 @@
 </template>
 
 <script setup>
-import { useUserStore } from "../store/userStore";
+import { useUserStore } from "../stores/userStore";
 
 const store = useUserStore();
 const user = store.$state;

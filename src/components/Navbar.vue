@@ -26,7 +26,7 @@
           Profile
         </router-link>
 
-        <div @click="closeMenu" class="hover:bg-orange-light/20 p-2 rounded cursor-pointer">
+        <div @click="openRiwayatKesehatan" class="hover:bg-orange-light/20 p-2 rounded cursor-pointer">
           Riwayat Kesehatan
         </div>
 
@@ -93,7 +93,7 @@
 
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from "vue";
-import { useUserStore } from "../store/userStore";
+import { useUserStore } from "../stores/userStore";
 
 const userStore = useUserStore();
 const user = userStore.$state;
@@ -109,6 +109,12 @@ const menuRef = ref(null);
 /* MENU HANDLERS */
 const toggleMenu = () => (showMenu.value = !showMenu.value);
 const closeMenu = () => (showMenu.value = false);
+
+/*RIWAYAT KESEHATAN*/
+const openRiwayatKesehatan = () => {
+  closeMenu(); // tutup dropdown dulu
+  router.push("/riwayat-kesehatan"); // lalu navigate
+};
 
 /* FEEDBACK HANDLERS */
 const openFeedback = () => {

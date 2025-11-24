@@ -112,7 +112,7 @@
 
 <script setup>
 import { ref, reactive } from "vue";
-import { useUserStore } from "../store/userStore";
+import { useUserStore } from "../stores/userStore";
 import CropperModal from "../components/CropperModal.vue";
 
 const store = useUserStore();
