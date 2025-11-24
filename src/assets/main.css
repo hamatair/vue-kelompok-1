@@ -1,37 +1,134 @@
-@import './base.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@import "tailwindcss";
-
-#app {
-  /* max-width: 1280px; */
-  margin: 0 auto;
-  padding: 0;
-  font-weight: normal;
+/* === RESET & GLOBAL === */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f3f4f6;
+    margin: 0;
+    padding: 0;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
-} 
-
-@media (min-width: 1024px) {
-  body {
+/* === LAYOUT FIX (PENTING) === */
+/* Wrapper untuk menengahkan konten secara vertikal & horizontal */
+.auth-wrapper {
     display: flex;
-    place-items: center;
-  }
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh; /* Tinggi satu layar penuh */
+    padding: 20px;
+    width: 100%;
+}
 
-  /* #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  } */
+/* Kartu Login/Register */
+.auth-card {
+    background-color: white;
+    width: 100%;
+    max-width: 400px; /* Batasi lebar maksimal agar tidak melebar */
+    padding: 40px;
+    border-radius: 24px; /* Rounded besar */
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e5e7eb;
+    display: flex;
+    flex-direction: column;
+}
+
+/* === KOMPONEN DESAIN UTAMA === */
+
+/* Input dengan Border Tebal */
+.custom-input {
+    border: 2.5px solid black; 
+    border-radius: 12px; 
+    padding: 12px 15px;
+    width: 100%; 
+    font-weight: 600; 
+    outline: none; 
+    transition: all 0.2s;
+    background-color: white;
+    color: #1f2937;
+    box-sizing: border-box; /* Mencegah padding menambah lebar */
+    margin-bottom: 5px;
+}
+.custom-input:focus { 
+    border-color: #F59E0B; 
+}
+
+/* Tombol Utama */
+.btn-primary {
+    background-color: #F59E0B; 
+    border-radius: 12px; 
+    color: white;
+    font-weight: 800; 
+    padding: 12px; 
+    width: 100%; 
+    transition: all 0.2s;
+    cursor: pointer;
+    border: none;
+    font-size: 1rem;
+    margin-top: 10px;
+}
+.btn-primary:hover { 
+    opacity: 0.9; 
+    transform: translateY(-1px);
+}
+.btn-primary:disabled {
+    background-color: #fbbf24;
+    cursor: not-allowed;
+}
+
+.auth-logo {
+    width: 80px;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+/* Label Form */
+.form-label {
+    /* ... (tetap sama) ... */
+}
+
+/* Layout Helper */
+.auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.auth-title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #111827;
+    margin: 0;
+}
+
+/* Label Form */
+.form-label {
+    display: block;
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: black;
+    margin-bottom: 4px;
+    text-align: left;
+}
+
+/* Layout Helper */
+.auth-header {
+    text-align: center;
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.auth-title {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #111827;
+    margin: 0;
 }

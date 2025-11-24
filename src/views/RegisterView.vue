@@ -1,226 +1,146 @@
 <script setup>
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+import { reactive } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
+import AuthLayout from '../components/AuthLayout.vue'
 
 const router = useRouter()
-const errorMessage = ref('')
-const successMessage = ref('')
+const auth = useAuthStore()
 
-const formData = ref({
+const form = reactive({
   name: '',
   email: '',
   password: '',
   password_confirmation: '',
   date_of_birth: '',
-  gender: '',
+  gender: 'male',
   height_cm: '',
   weight_kg: '',
-  activity: '',
-  role: 'user',
+  activity: 'jarang' // Default value
 })
 
-const handleRegister = () => {
-  errorMessage.value = ''
-  successMessage.value = ''
+const handleRegister = async () => {
+  // Panggil action register di Pinia Store
+  const success = await auth.register(form)
 
-  if (formData.value.password !== formData.value.password_confirmation) {
-    errorMessage.value = 'Passwords do not match'
-    return
+  // Jika berhasil, redirect ke dashboard
+  if (success) {
+    router.push('/dashboard')
   }
-
-  console.log('Registration Data:', formData.value)
-  successMessage.value = 'Registration successful! Check console for data.'
-
-  setTimeout(() => {
-    router.push('/login')
-  }, 2000)
 }
 </script>
 
 <template>
-  <div class="min-h-screen flex items-center justify-center px-6 py-12">
-    <div class="w-full max-w-md">
-      <div class="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 class="text-center text-2xl/9 font-bold tracking-tight text-white">Register</h2>
+  <AuthLayout title="Registration" :error="auth.error">
+    <form @submit.prevent="handleRegister" class="space-y-4">
+
+      <!-- Name -->
+      <div>
+        <label class="block text-black font-bold text-sm mb-1">Name</label>
+        <input type="text" v-model="form.name" class="custom-input py-2" required placeholder="Your Name">
       </div>
 
-      <div class="mt-10">
-        <form @submit.prevent="handleRegister" class="space-y-6">
-          <div>
-            <label for="name" class="block text-sm/6 font-medium text-gray-100">Full Name</label>
-            <div class="mt-2">
-              <input
-                id="name"
-                v-model="formData.name"
-                type="text"
-                required
-                class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label for="email" class="block text-sm/6 font-medium text-gray-100"
-              >Email address</label
-            >
-            <div class="mt-2">
-              <input
-                id="email"
-                v-model="formData.email"
-                type="email"
-                required
-                autocomplete="email"
-                class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label for="password" class="block text-sm/6 font-medium text-gray-100">Password</label>
-            <div class="mt-2">
-              <input
-                id="password"
-                v-model="formData.password"
-                type="password"
-                required
-                autocomplete="new-password"
-                class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label for="password_confirmation" class="block text-sm/6 font-medium text-gray-100"
-              >Confirm Password</label
-            >
-            <div class="mt-2">
-              <input
-                id="password_confirmation"
-                v-model="formData.password_confirmation"
-                type="password"
-                required
-                autocomplete="new-password"
-                class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label for="date_of_birth" class="block text-sm/6 font-medium text-gray-100"
-              >Date of Birth</label
-            >
-            <div class="mt-2">
-              <input
-                id="date_of_birth"
-                v-model="formData.date_of_birth"
-                type="date"
-                required
-                class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label class="block text-sm/6 font-medium text-gray-100">Gender</label>
-            <div class="mt-2 flex gap-4">
-              <label class="flex items-center text-gray-100">
-                <input v-model="formData.gender" type="radio" value="male" required class="mr-2" />
-                Male
-              </label>
-              <label class="flex items-center text-gray-100">
-                <input
-                  v-model="formData.gender"
-                  type="radio"
-                  value="female"
-                  required
-                  class="mr-2"
-                />
-                Female
-              </label>
-            </div>
-          </div>
-
-          <div>
-            <label for="height_cm" class="block text-sm/6 font-medium text-gray-100"
-              >Height (cm)</label
-            >
-            <div class="mt-2">
-              <input
-                id="height_cm"
-                v-model.number="formData.height_cm"
-                type="number"
-                required
-                min="100"
-                max="250"
-                class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label for="weight_kg" class="block text-sm/6 font-medium text-gray-100"
-              >Weight (kg)</label
-            >
-            <div class="mt-2">
-              <input
-                id="weight_kg"
-                v-model.number="formData.weight_kg"
-                type="number"
-                step="0.1"
-                required
-                min="30"
-                max="300"
-                class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-              />
-            </div>
-          </div>
-
-          <div>
-            <label for="activity" class="block text-sm/6 font-medium text-gray-100"
-              >Activity Level</label
-            >
-            <div class="mt-2">
-              <select
-                id="activity"
-                v-model="formData.activity"
-                required
-                class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-white outline-1 -outline-offset-1 outline-white/10 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-500 sm:text-sm/6"
-              >
-                <option value="">Select activity level</option>
-                <option value="jarang">Jarang (Sedentary)</option>
-                <option value="olahraga_ringan">Olahraga Ringan (Light Exercise)</option>
-                <option value="olahraga_sedang">Olahraga Sedang (Moderate Exercise)</option>
-                <option value="olahraga_berat">Olahraga Berat (Heavy Exercise)</option>
-                <option value="sangat_berat">Sangat Berat (Very Heavy Exercise)</option>
-              </select>
-            </div>
-          </div>
-
-          <div v-if="errorMessage" class="text-red-400 text-sm">
-            {{ errorMessage }}
-          </div>
-
-          <div v-if="successMessage" class="text-green-400 text-sm">
-            {{ successMessage }}
-          </div>
-
-          <div class="mt-8!">
-            <button
-              type="submit"
-              class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-indigo-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-            >
-              Sign Up
-            </button>
-          </div>
-        </form>
-
-        <p class="mt-10 text-center text-sm/6 text-gray-400">
-          Already have an account?
-          <router-link to="/login" class="font-semibold text-indigo-400 hover:text-indigo-300">
-            Sign in
-          </router-link>
-        </p>
+      <!-- Email -->
+      <div>
+        <label class="block text-black font-bold text-sm mb-1">Email</label>
+        <input type="email" v-model="form.email" class="custom-input py-2" required placeholder="email@example.com">
       </div>
+
+      <!-- Password & Confirm -->
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block text-black font-bold text-sm mb-1">Password</label>
+          <input type="password" v-model="form.password" class="custom-input py-2" required>
+        </div>
+        <div>
+          <label class="block text-black font-bold text-sm mb-1">Confirm</label>
+          <input type="password" v-model="form.password_confirmation" class="custom-input py-2" required>
+        </div>
+      </div>
+
+      <!-- Profil Fisik (Grid 2 Kolom) -->
+      <div class="grid grid-cols-2 gap-3">
+        <!-- Tanggal Lahir -->
+        <div>
+          <label class="block text-black font-bold text-xs mb-1">Birth Date</label>
+          <input type="date" v-model="form.date_of_birth" class="custom-input text-xs py-2" required>
+        </div>
+
+        <!-- Gender -->
+        <div>
+          <label class="block text-black font-bold text-xs mb-1">Gender</label>
+          <select v-model="form.gender" class="custom-input text-xs py-2" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+
+        <!-- Tinggi Badan -->
+        <div>
+          <label class="block text-black font-bold text-xs mb-1">Height (cm)</label>
+          <input type="number" v-model="form.height_cm" class="custom-input text-xs py-2" required placeholder="170">
+        </div>
+
+        <!-- Berat Badan -->
+        <div>
+          <label class="block text-black font-bold text-xs mb-1">Weight (kg)</label>
+          <input type="number" v-model="form.weight_kg" class="custom-input text-xs py-2" required placeholder="60">
+        </div>
+      </div>
+
+      <!-- Tombol Submit -->
+      <button type="submit" class="btn-primary text-lg shadow-md mt-4" :disabled="auth.loading">
+        <span v-if="auth.loading">Creating Account...</span>
+        <span v-else>Create Account</span>
+      </button>
+
+    </form>
+
+    <!-- Link ke Login -->
+    <div class="text-center mt-4">
+      <p class="text-sm font-semibold">
+        Already have an account?
+        <RouterLink to="/login" class="text-orange-500 hover:underline font-bold">Login</RouterLink>
+      </p>
     </div>
-  </div>
+  </AuthLayout>
 </template>
+
+<style scoped>
+/* CSS Lokal untuk Input & Button agar tampilan sesuai desain */
+.custom-input {
+  border: 2.5px solid black;
+  border-radius: 12px;
+  padding: 8px 12px;
+  width: 100%;
+  font-weight: 600;
+  outline: none;
+  transition: all 0.2s;
+  background-color: white;
+}
+
+.custom-input:focus {
+  border-color: #F59E0B;
+  /* Warna Orange/Amber */
+}
+
+.btn-primary {
+  background-color: #F59E0B;
+  border-radius: 12px;
+  color: white;
+  font-weight: 800;
+  padding: 12px;
+  width: 100%;
+  transition: opacity 0.2s;
+  cursor: pointer;
+}
+
+.btn-primary:hover {
+  opacity: 0.9;
+}
+
+.btn-primary:disabled {
+  background-color: #fbbf24;
+  cursor: not-allowed;
+}
+</style>
