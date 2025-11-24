@@ -12,7 +12,8 @@ const app = createApp(App);
 
 app.component("FontAwesomeIcon", FontAwesomeIcon);
 
-app.use(createPinia());
+const pinia = createPinia();
+app.use(pinia);
 app.use(router);
 
 app.mount('#app');

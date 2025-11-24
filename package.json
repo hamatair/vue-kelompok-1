@@ -13,6 +13,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
     "@fortawesome/free-brands-svg-icons": "^7.1.0",
     "@fortawesome/free-regular-svg-icons": "^7.1.0",
@@ -22,6 +23,12 @@
     "vue": "^3.5.22",
     "vue-advanced-cropper": "^2.8.9",
     "vue-router": "^4.5.1"
+=======
+    "axios": "^1.13.2",
+    "pinia": "^3.0.4",
+    "vue": "^3.5.22",
+    "vue-router": "^4.6.3"
+>>>>>>> main
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.15",
