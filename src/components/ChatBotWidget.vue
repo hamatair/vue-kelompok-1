@@ -101,7 +101,7 @@
           type="text"
           placeholder="Tulis pertanyaan kamu..."
           :disabled="
-            !authStore.isLoggedIn ||
+            !authStore.isAuthenticated ||
             chatStore.sending ||
             chatStore.loadingInitial ||
             chatStore.isFinished
@@ -111,7 +111,7 @@
         <button
           type="submit"
           :disabled="
-            !authStore.isLoggedIn || chatStore.sending || !input.trim() || chatStore.isFinished
+            !authStore.isAuthenticated || chatStore.sending || !input.trim() || chatStore.isFinished
           "
           class="px-4 py-2 rounded-full bg-orange-600 text-slate-50 text-sm font-medium transition hover:bg-orange-700 disabled:opacity-60 disabled:cursor-not-allowed"
         >
@@ -132,7 +132,7 @@ const authStore = useAuthStore()
 const input = ref('')
 
 const handleOpen = async () => {
-  if (!authStore.isLoggedIn) {
+  if (!authStore.isAuthenticated) {
     alert('Silakan login terlebih dahulu.')
     return
   }

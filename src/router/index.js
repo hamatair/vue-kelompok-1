@@ -13,7 +13,9 @@ import RegisterView from '../views/RegisterView.vue'
 const routes = [
   {
     path: '/',
-    redirect: '/login', // SPA pertama kali ke halaman login
+    name: 'home',
+    component: Home,
+    meta: { requiresAuth: true },
   },
   {
     path: '/login',
@@ -39,18 +41,16 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const auth = useAuthStore()
-  if (to.name === 'dashboard' && !auth.token) next({ name: 'login' })
-  else if ((to.name === 'login' || to.name === 'register') && auth.token)
-    next({ name: 'dashboard' })
-  else next()
-})
+  const isLoggedIn = auth.isAuthenticated
+  const isAdmin = auth.user?.role === 'admin'
 
-router.beforeEach((to, from, next) => {
-  const auth = useAuthStore()
-  if (to.name === 'dashboard' && !auth.token) next({ name: 'login' })
-  else if ((to.name === 'login' || to.name === 'register') && auth.token)
-    next({ name: 'dashboard' })
-  else next()
+  if (to.meta?.requiresAuth && !isLoggedIn) return next({ name: 'login' })
+
+  if ((to.name === 'login' || to.name === 'register') && isLoggedIn) {
+    return isAdmin ? next({ name: 'dashboard' }) : next({ name: 'home' })
+  }
+
+  next()
 })
 
 export default router
