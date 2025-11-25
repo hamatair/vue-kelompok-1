@@ -9,7 +9,7 @@
 
 <script setup>
 import { onMounted } from 'vue'
-// import ChatBotWidget from './components/ChatBotWidget.vue'
+import ChatBotWidget from './components/ChatBotWidget.vue'
 import Footer from './components/Footer.vue'
 import Navbar from './components/Navbar.vue'
 import { useAuthStore } from './stores/auth'
