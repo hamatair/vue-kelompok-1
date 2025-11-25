@@ -87,6 +87,18 @@ const handleRegister = async () => {
         </div>
       </div>
 
+      <!-- Aktivitas Fisik -->
+      <div class="col-span-2">
+        <label class="form-label text-xs">Activity Level</label>
+        <select v-model="form.activity" class="custom-input text-xs py-2" required>
+          <option value="jarang">Jarang (Sedentary)</option>
+          <option value="olahraga_ringan">Ringan (1-3x seminggu)</option>
+          <option value="olahraga_sedang">Sedang (3-5x seminggu)</option>
+          <option value="olahraga_berat">Berat (6-7x seminggu)</option>
+          <option value="sangat_berat">Sangat Berat (2x sehari)</option>
+        </select>
+      </div>
+
       <!-- Tombol Submit -->
       <button type="submit" class="btn-primary text-lg shadow-md mt-4" :disabled="auth.loading">
         <span v-if="auth.loading">Creating Account...</span>
