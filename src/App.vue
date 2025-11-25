@@ -1,14 +1,10 @@
-<template>
-  <div class="min-h-screen bg-white-soft text-black-base">
-    <Navbar />
-    <router-view />
-  </div>
-</template>
-
 <script setup>
+import { RouterView } from 'vue-router';
+import './assets/main.css';
 </script>
 
 <template>
+  <!-- Hanya boleh ada satu RouterView di sini sebagai pintu masuk utama -->
   <RouterView />
 </template>
 

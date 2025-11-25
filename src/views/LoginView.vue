@@ -1,8 +1,8 @@
 <script setup>
-import { useAuthStore } from '@/stores/auth'
-import { reactive, ref } from 'vue'
+import { useAuthStore } from '@/stores/auth';
+import { reactive, ref } from 'vue';
 import { RouterLink, useRouter } from 'vue-router'; // Tambahkan RouterLink di sini
-import AuthLayout from '../components/AuthLayout.vue'
+import AuthLayout from '../components/AuthLayout.vue';
 
 const router = useRouter()
 const auth = useAuthStore()

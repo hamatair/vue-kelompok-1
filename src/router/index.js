@@ -4,8 +4,10 @@ import RiwayatKesehatan from '@/views/RiwayatKesehatan.vue'
 import Artikel from '../views/Artikel.vue'
 import EditProfile from '../views/EditProfile.vue'
 import Home from '../views/Home.vue'
+import LoginView from '../views/LoginView.vue'
 import Profile from '../views/Profile.vue'
 import ProgresNutrisi from '../views/ProgresNutrisi.vue'
+import RegisterView from '../views/RegisterView.vue'
 import Rekomendasi from '../views/Rekomendasi.vue'
 
 const routes = [
@@ -16,6 +18,8 @@ const routes = [
   { path: '/rekomendasi', component: Rekomendasi },
   { path: '/riwayat-kesehatan', component: RiwayatKesehatan },
   { path: '/progress', component: ProgresNutrisi },
+  { path: '/login', component: LoginView },
+  { path: '/register', component: RegisterView },
 ]
 
 const router = createRouter({
@@ -35,25 +39,17 @@ const router = createRouter({
       name: 'register',
       component: RegisterView,
     },
-    {
-      path: '/dashboard',
-      name: 'dashboard',
-      component: DashboardView,
-    },
+    // {
+    //   path: '/dashboard',
+    //   name: 'dashboard',
+    //   component: DashboardView,
+    // },
     {
       path: '/profile',
       name: 'profile',
-      component: ProfileView,
+      component: Profile,
     },
   ],
-})
-
-router.beforeEach((to, from, next) => {
-  const auth = useAuthStore()
-  if (to.name === 'dashboard' && !auth.token) next({ name: 'login' })
-  else if ((to.name === 'login' || to.name === 'register') && auth.token)
-    next({ name: 'dashboard' })
-  else next()
 })
 
 export default router
