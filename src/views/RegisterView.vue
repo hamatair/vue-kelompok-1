@@ -16,7 +16,7 @@ const form = reactive({
   gender: 'male',
   height_cm: '',
   weight_kg: '',
-  activity: 'jarang' // Default value
+  activity: 'jarang', // Default value
 })
 
 const handleRegister = async () => {
@@ -25,7 +25,7 @@ const handleRegister = async () => {
 
   // Jika berhasil, redirect ke dashboard
   if (success) {
-    router.push('/dashboard')
+    router.push('/')
   }
 }
 </script>
@@ -33,28 +33,44 @@ const handleRegister = async () => {
 <template>
   <AuthLayout title="Registration" :error="auth.error">
     <form @submit.prevent="handleRegister" class="space-y-4">
-
       <!-- Name -->
       <div>
         <label class="block text-black font-bold text-sm mb-1">Name</label>
-        <input type="text" v-model="form.name" class="custom-input py-2" required placeholder="Your Name">
+        <input
+          type="text"
+          v-model="form.name"
+          class="custom-input py-2"
+          required
+          placeholder="Your Name"
+        />
       </div>
 
       <!-- Email -->
       <div>
         <label class="block text-black font-bold text-sm mb-1">Email</label>
-        <input type="email" v-model="form.email" class="custom-input py-2" required placeholder="email@example.com">
+        <input
+          type="email"
+          v-model="form.email"
+          class="custom-input py-2"
+          required
+          placeholder="email@example.com"
+        />
       </div>
 
       <!-- Password & Confirm -->
       <div class="grid grid-cols-2 gap-3">
         <div>
           <label class="block text-black font-bold text-sm mb-1">Password</label>
-          <input type="password" v-model="form.password" class="custom-input py-2" required>
+          <input type="password" v-model="form.password" class="custom-input py-2" required />
         </div>
         <div>
           <label class="block text-black font-bold text-sm mb-1">Confirm</label>
-          <input type="password" v-model="form.password_confirmation" class="custom-input py-2" required>
+          <input
+            type="password"
+            v-model="form.password_confirmation"
+            class="custom-input py-2"
+            required
+          />
         </div>
       </div>
 
@@ -63,7 +79,12 @@ const handleRegister = async () => {
         <!-- Tanggal Lahir -->
         <div>
           <label class="block text-black font-bold text-xs mb-1">Birth Date</label>
-          <input type="date" v-model="form.date_of_birth" class="custom-input text-xs py-2" required>
+          <input
+            type="date"
+            v-model="form.date_of_birth"
+            class="custom-input text-xs py-2"
+            required
+          />
         </div>
 
         <!-- Gender -->
@@ -78,13 +99,25 @@ const handleRegister = async () => {
         <!-- Tinggi Badan -->
         <div>
           <label class="block text-black font-bold text-xs mb-1">Height (cm)</label>
-          <input type="number" v-model="form.height_cm" class="custom-input text-xs py-2" required placeholder="170">
+          <input
+            type="number"
+            v-model="form.height_cm"
+            class="custom-input text-xs py-2"
+            required
+            placeholder="170"
+          />
         </div>
 
         <!-- Berat Badan -->
         <div>
           <label class="block text-black font-bold text-xs mb-1">Weight (kg)</label>
-          <input type="number" v-model="form.weight_kg" class="custom-input text-xs py-2" required placeholder="60">
+          <input
+            type="number"
+            v-model="form.weight_kg"
+            class="custom-input text-xs py-2"
+            required
+            placeholder="60"
+          />
         </div>
       </div>
 
@@ -93,7 +126,6 @@ const handleRegister = async () => {
         <span v-if="auth.loading">Creating Account...</span>
         <span v-else>Create Account</span>
       </button>
-
     </form>
 
     <!-- Link ke Login -->
@@ -120,12 +152,12 @@ const handleRegister = async () => {
 }
 
 .custom-input:focus {
-  border-color: #F59E0B;
+  border-color: #f59e0b;
   /* Warna Orange/Amber */
 }
 
 .btn-primary {
-  background-color: #F59E0B;
+  background-color: #f59e0b;
   border-radius: 12px;
   color: white;
   font-weight: 800;
