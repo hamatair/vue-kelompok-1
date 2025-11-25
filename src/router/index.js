@@ -10,7 +10,6 @@ import RiwayatKesehatan from '@/views/RiwayatKesehatan.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import ArtikelDetail from '@/views/ArtikelDetail.vue'
 
-// Import Admin Views (Yang baru kita buat)
 import ArtikelEdit from '@/views/ArtikelEdit.vue'
 import KategoriList from '@/views/KategoriList.vue'
 import LoginView from '@/views/LoginView.vue'
@@ -21,8 +20,11 @@ import ProgresNutrisi from '@/views/ProgresNutrisi.vue'
 
 const routes = [
   { path: '/', component: Home, name: 'home' },
-  { path: '/login', component: LoginView },
-  { path: '/register', component: RegisterView },
+
+  // 🔥 Perbaikan → tambahkan name
+  { path: '/login', component: LoginView, name: 'login' },
+  { path: '/register', component: RegisterView, name: 'register' },
+
   { path: '/profile', component: Profile },
   { path: '/edit-profile', component: EditProfile },
   { path: '/artikel', component: Artikel },
@@ -30,8 +32,8 @@ const routes = [
   { path: '/riwayat-kesehatan', component: RiwayatKesehatan },
   { path: '/progress', component: ProgresNutrisi },
 
-  // Route Detail Artikel (Dynamic)
   { path: '/artikel/:id', component: ArtikelDetail },
+
   {
     path: '/dashboard-view',
     component: DashboardView,
@@ -39,10 +41,6 @@ const routes = [
     meta: { requiresAuth: true, requiresAdmin: true },
   },
 
-  // Route Detail Artikel (Dynamic)
-  { path: '/artikel/:id', component: ArtikelDetail },
-
-  // --- Admin Routes (Management) ---
   {
     path: '/admin/articles',
     component: DashboardView,
@@ -96,10 +94,12 @@ router.beforeEach(async (to, from, next) => {
   const isAdmin = auth.user?.role === 'admin'
   const isAdminRoute = to.path.startsWith('/admin')
 
-  if ((to.meta?.requiresAuth || isAdminRoute) && !isLoggedIn) return next({ name: 'login' })
+  // 🔥 Hapus duplikasi
+  if ((to.meta?.requiresAuth || isAdminRoute) && !isLoggedIn)
+    return next({ name: 'login' })
 
-  if ((to.meta?.requiresAuth || isAdminRoute) && !isLoggedIn) return next({ name: 'login' })
-  if ((to.meta?.requiresAdmin || isAdminRoute) && !isAdmin) return next({ name: 'home' })
+  if ((to.meta?.requiresAdmin || isAdminRoute) && !isAdmin)
+    return next({ name: 'home' })
 
   if ((to.name === 'login' || to.name === 'register') && isLoggedIn) {
     return isAdmin ? next({ name: 'dashboard-view' }) : next({ name: 'home' })

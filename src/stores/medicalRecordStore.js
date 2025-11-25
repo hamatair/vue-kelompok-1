@@ -1,12 +1,12 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 import {
   getMedicalRecords,
   createMedicalRecord,
   updateMedicalRecord,
   deleteMedicalRecord,
-} from '../services/api'
+} from "@/services/api";
 
-export const useMedicalRecordStore = defineStore('medicalRecordStore', {
+export const useMedicalRecordStore = defineStore("medicalRecordStore", {
   state: () => ({
     records: [],
     loading: false,
@@ -15,47 +15,45 @@ export const useMedicalRecordStore = defineStore('medicalRecordStore', {
 
   actions: {
     async fetchRecords() {
-      this.loading = true
+      this.loading = true;
       try {
-        const response = await getMedicalRecords()
-        this.records = response.data.data // Sesuaikan struktur API Laravel-mu
+        const response = await getMedicalRecords();
+        this.records = response.data; // backend = array langsung
       } catch (err) {
-        this.error = err
+        this.error = err;
       } finally {
-        this.loading = false
+        this.loading = false;
       }
     },
 
-    async addRecord(formData) {
+    async addRecord(payload) {
       try {
-        const response = await createMedicalRecord(formData)
-        this.records.push(response.data.data)
+        const response = await createMedicalRecord(payload);
+        this.records.push(response.data); // backend balikin object
       } catch (err) {
-        this.error = err
+        this.error = err;
       }
     },
 
-    async updateRecord(id, formData) {
+    async updateRecord(id, payload) {
       try {
-        const response = await updateMedicalRecord(id, formData)
-        const updated = response.data.data
+        const response = await updateMedicalRecord(id, payload);
+        const updated = response.data;
 
-        const index = this.records.findIndex((r) => r.id === id)
-        if (index !== -1) {
-          this.records[index] = updated
-        }
+        const index = this.records.findIndex((i) => i.id === id);
+        if (index !== -1) this.records[index] = updated;
       } catch (err) {
-        this.error = err
+        this.error = err;
       }
     },
 
     async removeRecord(id) {
       try {
-        await deleteMedicalRecord(id)
-        this.records = this.records.filter((r) => r.id !== id)
+        await deleteMedicalRecord(id);
+        this.records = this.records.filter((i) => i.id !== id);
       } catch (err) {
-        this.error = err
+        this.error = err;
       }
     },
   },
-})
+});

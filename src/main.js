@@ -8,6 +8,7 @@ import { useAuthStore } from './stores/auth'
 import './assets/base.css'
 import './assets/main.css'
 
+import '@fortawesome/fontawesome-free/css/all.min.css'
 import FontAwesomeIcon from './plugins/fontawesome'
 
 axios.defaults.baseURL = 'http://127.0.0.1:8000/api'
