@@ -25,7 +25,6 @@ const routes = [
   { path: '/artikel', component: Artikel },
   { path: '/rekomendasi', component: Rekomendasi },
   { path: '/riwayat-kesehatan', component: RiwayatKesehatan },
-  { path: '/dashboard-view', component: DashboardView },
 
   // Route Detail Artikel (Dynamic)
   { path: '/artikel/:id', component: ArtikelDetail },
@@ -33,7 +32,7 @@ const routes = [
     path: '/dashboard-view',
     component: DashboardView,
     name: 'dashboard-view',
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: true, requiresAdmin: true },
   },
 
   // Route Detail Artikel (Dynamic)
@@ -57,6 +56,7 @@ router.beforeEach((to, from, next) => {
   const isAdmin = auth.user?.role === 'admin'
 
   if (to.meta?.requiresAuth && !isLoggedIn) return next({ name: 'login' })
+  if (to.meta?.requiresAdmin && !isAdmin) return next({ name: 'home' })
 
   if ((to.name === 'login' || to.name === 'register') && isLoggedIn) {
     return isAdmin ? next({ name: 'dashboard-view' }) : next({ name: 'home' })
