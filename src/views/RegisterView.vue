@@ -36,25 +36,13 @@ const handleRegister = async () => {
       <!-- Name -->
       <div>
         <label class="block text-black font-bold text-sm mb-1">Name</label>
-        <input
-          type="text"
-          v-model="form.name"
-          class="custom-input py-2"
-          required
-          placeholder="Your Name"
-        />
+        <input type="text" v-model="form.name" class="custom-input py-2" required placeholder="Your Name" />
       </div>
 
       <!-- Email -->
       <div>
         <label class="block text-black font-bold text-sm mb-1">Email</label>
-        <input
-          type="email"
-          v-model="form.email"
-          class="custom-input py-2"
-          required
-          placeholder="email@example.com"
-        />
+        <input type="email" v-model="form.email" class="custom-input py-2" required placeholder="email@example.com" />
       </div>
 
       <!-- Password & Confirm -->
@@ -65,12 +53,7 @@ const handleRegister = async () => {
         </div>
         <div>
           <label class="block text-black font-bold text-sm mb-1">Confirm</label>
-          <input
-            type="password"
-            v-model="form.password_confirmation"
-            class="custom-input py-2"
-            required
-          />
+          <input type="password" v-model="form.password_confirmation" class="custom-input py-2" required />
         </div>
       </div>
 
@@ -79,12 +62,7 @@ const handleRegister = async () => {
         <!-- Tanggal Lahir -->
         <div>
           <label class="block text-black font-bold text-xs mb-1">Birth Date</label>
-          <input
-            type="date"
-            v-model="form.date_of_birth"
-            class="custom-input text-xs py-2"
-            required
-          />
+          <input type="date" v-model="form.date_of_birth" class="custom-input text-xs py-2" required />
         </div>
 
         <!-- Gender -->
@@ -99,26 +77,26 @@ const handleRegister = async () => {
         <!-- Tinggi Badan -->
         <div>
           <label class="block text-black font-bold text-xs mb-1">Height (cm)</label>
-          <input
-            type="number"
-            v-model="form.height_cm"
-            class="custom-input text-xs py-2"
-            required
-            placeholder="170"
-          />
+          <input type="number" v-model="form.height_cm" class="custom-input text-xs py-2" required placeholder="170" />
         </div>
 
         <!-- Berat Badan -->
         <div>
           <label class="block text-black font-bold text-xs mb-1">Weight (kg)</label>
-          <input
-            type="number"
-            v-model="form.weight_kg"
-            class="custom-input text-xs py-2"
-            required
-            placeholder="60"
-          />
+          <input type="number" v-model="form.weight_kg" class="custom-input text-xs py-2" required placeholder="60" />
         </div>
+      </div>
+
+      <!-- Aktivitas Fisik -->
+      <div class="col-span-2">
+        <label class="form-label text-xs">Activity Level</label>
+        <select v-model="form.activity" class="custom-input text-xs py-2" required>
+          <option value="jarang">Jarang (Sedentary)</option>
+          <option value="olahraga_ringan">Ringan (1-3x seminggu)</option>
+          <option value="olahraga_sedang">Sedang (3-5x seminggu)</option>
+          <option value="olahraga_berat">Berat (6-7x seminggu)</option>
+          <option value="sangat_berat">Sangat Berat (2x sehari)</option>
+        </select>
       </div>
 
       <!-- Tombol Submit -->
