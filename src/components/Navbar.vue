@@ -15,9 +15,18 @@
     </div>
 
     <div class="relative" ref="menuRef">
-      <div @click="toggleMenu" class="cursor-pointer flex items-center gap-2 font-semibold">
-        <img :src="user.photo" class="w-10 h-10 rounded-full" />
-        <span>{{ user.name }}</span>
+      <div @click="closeMenu" class="cursor-pointer flex items-center gap-2 font-semibold">
+        <router-link 
+        v-if="user.role == 'admin'"
+         @click=" " to="/dashboard-view"
+          class="hover:text-orange-light"> Dashboard </router-link>
+        <!-- <router-link 
+         @click="closeMenu" to="/dashboard-view"
+          class="hover:text-orange-light"> Dashboard </router-link> -->
+        <div @click="toggleMenu" class="cursor-pointer flex items-center gap-2 font-semibold">
+          <img :src="user.photo" class="w-10 h-10 rounded-full" />
+          <span>{{ user.name }}</span>
+        </div>
       </div>
 
       <div
