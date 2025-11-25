@@ -1,9 +1,22 @@
-import { useAuthStore } from '@/stores/auth'
 import { createRouter, createWebHistory } from 'vue-router'
-import DashboardView from '../views/DashboardView.vue'
-import LoginView from '../views/LoginView.vue'
-import ProfileView from '../views/ProfileView.vue'
-import RegisterView from '../views/RegisterView.vue'
+
+import RiwayatKesehatan from '@/views/RiwayatKesehatan.vue'
+import Artikel from '../views/Artikel.vue'
+import EditProfile from '../views/EditProfile.vue'
+import Home from '../views/Home.vue'
+import Profile from '../views/Profile.vue'
+import ProgresNutrisi from '../views/ProgresNutrisi.vue'
+import Rekomendasi from '../views/Rekomendasi.vue'
+
+const routes = [
+  { path: '/', component: Home },
+  { path: '/profile', component: Profile },
+  { path: '/edit-profile', component: EditProfile },
+  { path: '/artikel', component: Artikel },
+  { path: '/rekomendasi', component: Rekomendasi },
+  { path: '/riwayat-kesehatan', component: RiwayatKesehatan },
+  { path: '/progress', component: ProgresNutrisi },
+]
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
