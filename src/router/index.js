@@ -15,6 +15,8 @@ import ArtikelEdit from '@/views/ArtikelEdit.vue'
 import KategoriList from '@/views/KategoriList.vue'
 import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
+import KonsultasiDetail from '@/views/KonsultasiDetail.vue'
+import KonsultasiList from '@/views/KonsultasiList.vue'
 
 const routes = [
   { path: '/', component: Home, name: 'home' },
@@ -39,10 +41,37 @@ const routes = [
   { path: '/artikel/:id', component: ArtikelDetail },
 
   // --- Admin Routes (Management) ---
-  { path: '/admin/articles', component: DashboardView },
-  { path: '/admin/article/new', component: ArtikelEdit },
-  { path: '/admin/article/edit/:id', component: ArtikelEdit },
-  { path: '/admin/category/', component: KategoriList },
+  {
+    path: '/admin/articles',
+    component: DashboardView,
+    meta: { requiresAuth: true, requiresAdmin: true },
+  },
+  {
+    path: '/admin/article/new',
+    component: ArtikelEdit,
+    meta: { requiresAuth: true, requiresAdmin: true },
+  },
+  {
+    path: '/admin/article/edit/:id',
+    component: ArtikelEdit,
+    meta: { requiresAuth: true, requiresAdmin: true },
+  },
+  {
+    path: '/admin/category/',
+    component: KategoriList,
+    meta: { requiresAuth: true, requiresAdmin: true },
+  },
+  {
+    path: '/admin/consultations',
+    component: KonsultasiList,
+    meta: { requiresAuth: true, requiresAdmin: true },
+  },
+  {
+    path: '/admin/consultations/:id',
+    component: KonsultasiDetail,
+    meta: { requiresAuth: true, requiresAdmin: true },
+    props: true,
+  },
 ]
 
 const router = createRouter({
@@ -50,13 +79,25 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const auth = useAuthStore()
+
+  if (auth.token && !auth.user) {
+    try {
+      await auth.fetchProfile()
+    } catch {
+      auth.logout()
+    }
+  }
+
   const isLoggedIn = auth.isAuthenticated
   const isAdmin = auth.user?.role === 'admin'
+  const isAdminRoute = to.path.startsWith('/admin')
 
-  if (to.meta?.requiresAuth && !isLoggedIn) return next({ name: 'login' })
-  if (to.meta?.requiresAdmin && !isAdmin) return next({ name: 'home' })
+  if ((to.meta?.requiresAuth || isAdminRoute) && !isLoggedIn) return next({ name: 'login' })
+
+  if ((to.meta?.requiresAuth || isAdminRoute) && !isLoggedIn) return next({ name: 'login' })
+  if ((to.meta?.requiresAdmin || isAdminRoute) && !isAdmin) return next({ name: 'home' })
 
   if ((to.name === 'login' || to.name === 'register') && isLoggedIn) {
     return isAdmin ? next({ name: 'dashboard-view' }) : next({ name: 'home' })

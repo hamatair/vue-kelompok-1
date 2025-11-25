@@ -25,3 +25,15 @@ export const sendChatMessage = (consultationId, content) =>
   Api.post('/messages', { consultation_id: consultationId, content })
 export const endConsultation = (id) =>
   Api.patch(`${CONSULTATIONS_PATH}/${id}`, { status: 'selesai' })
+// ADMIN KONSULTASI CHATBOT
+export function adminFetchConsultations(status) {
+  return Api.get('/admin/consultations', {
+    params: status ? { status } : {},
+  })
+}
+export function adminUpdateConsultationStatus(id, status) {
+  return Api.put(`/admin/consultations/${id}`, { status })
+}
+export function adminDeleteConsultation(id) {
+  return Api.delete(`/admin/consultations/${id}`)
+}
