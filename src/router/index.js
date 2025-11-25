@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+import ProgresNutrisi from '@/views/ProgresNutrisi.vue'
 import RiwayatKesehatan from '@/views/RiwayatKesehatan.vue'
 import Artikel from '../views/Artikel.vue'
 import EditProfile from '../views/EditProfile.vue'
@@ -18,6 +19,7 @@ const routes = [
   { path: '/riwayat-kesehatan', component: RiwayatKesehatan },
   { path: '/login', component: LoginView },
   { path: '/register', component: RegisterView },
+  { path: '/progress', component: ProgresNutrisi },
 ]
 
 const router = createRouter({
