@@ -21,12 +21,12 @@
           </p>
 
           <div class="mt-6 flex flex-wrap gap-3">
-            <RouterLink
+            <router-link
               to="/register"
               class="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-orange-400 hover:bg-orange-500 text-sm font-semibold text-white shadow-md transition"
             >
               Mulai Sekarang
-            </RouterLink>
+            </router-link>
           </div>
         </div>
 
@@ -138,7 +138,7 @@
     <!-- UNTUK SIAPA CALMATE DIBUAT -->
     <section class="py-14 bg-orange-400 text-white">
       <div
-        class="max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-[1.1fr,1.3fr] gap-8 items-center"
+        class="max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-[1.1fr_1.3fr] gap-8 items-center"
       >
         <div>
           <h2 class="text-2xl sm:text-3xl font-bold">

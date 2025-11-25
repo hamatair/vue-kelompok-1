@@ -13,9 +13,13 @@ import ArtikelDetail from '@/views/ArtikelDetail.vue'
 // Import Admin Views (Yang baru kita buat)
 import ArtikelEdit from '@/views/ArtikelEdit.vue'
 import KategoriList from '@/views/KategoriList.vue'
+import LoginView from '@/views/LoginView.vue'
+import RegisterView from '@/views/RegisterView.vue'
 
 const routes = [
-  { path: '/', component: Home },
+  { path: '/', component: Home, name: 'home' },
+  { path: '/login', component: LoginView },
+  { path: '/register', component: RegisterView },
   { path: '/profile', component: Profile },
   { path: '/edit-profile', component: EditProfile },
   { path: '/artikel', component: Artikel },
@@ -25,7 +29,12 @@ const routes = [
 
   // Route Detail Artikel (Dynamic)
   { path: '/artikel/:id', component: ArtikelDetail },
-  { path: '/dashboard-view', component: DashboardView },
+  {
+    path: '/dashboard-view',
+    component: DashboardView,
+    name: 'dashboard-view',
+    meta: { requiresAuth: true },
+  },
 
   // Route Detail Artikel (Dynamic)
   { path: '/artikel/:id', component: ArtikelDetail },
@@ -50,7 +59,7 @@ router.beforeEach((to, from, next) => {
   if (to.meta?.requiresAuth && !isLoggedIn) return next({ name: 'login' })
 
   if ((to.name === 'login' || to.name === 'register') && isLoggedIn) {
-    return isAdmin ? next({ name: 'dashboard' }) : next({ name: 'home' })
+    return isAdmin ? next({ name: 'dashboard-view' }) : next({ name: 'home' })
   }
 
   next()

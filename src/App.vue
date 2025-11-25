@@ -3,6 +3,7 @@
     <Navbar />
     <router-view />
     <ChatBotWidget v-if="authStore.isAuthenticated" />
+    <Footer />
   </div>
 </template>
 
@@ -11,6 +12,7 @@ import { onMounted } from 'vue'
 import { useAuthStore } from './stores/auth'
 import ChatBotWidget from './components/ChatBotWidget.vue'
 import Navbar from './components/Navbar.vue'
+import Footer from './components/Footer.vue'
 
 const authStore = useAuthStore()
 

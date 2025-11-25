@@ -1,7 +1,14 @@
 <template>
   <nav class="w-full px-6 py-4 flex justify-between items-center bg-orange text-white-soft">
-    <div class="flex items-center gap-2 font-bold text-lg">
-      <span>LOGO</span>
+    <div>
+      <router-link to="/" class="flex items-center gap-2 font-bold text-lg cursor-pointer">
+        <img
+          src="../assets/logo.svg"
+          alt="Calmate Logo"
+          class="h-9 w-9 rounded-full object-cover"
+        />
+        <div class="text-xl font-bold tracking-wide text-white">CALMATE</div>
+      </router-link>
     </div>
 
     <div class="flex gap-8 font-semibold text-white-soft">
@@ -14,17 +21,22 @@
       >
     </div>
 
-    <div class="relative" ref="menuRef">
-      <div @click="closeMenu" class="cursor-pointer flex items-center gap-2 font-semibold">
-        <router-link 
-        v-if="user.role == 'admin'"
-         @click=" " to="/dashboard-view"
-          class="hover:text-orange-light"> Dashboard </router-link>
+    <div v-if="isAuthenticated" class="relative" ref="menuRef">
+      <div class="cursor-pointer flex items-center gap-2 font-semibold">
+        <router-link
+          v-if="user.role == 'admin'"
+          @click="closeMenu"
+          to="/dashboard-view"
+          class="hover:text-orange-light"
+        >
+          Dashboard
+        </router-link>
         <!-- <router-link 
          @click="closeMenu" to="/dashboard-view"
           class="hover:text-orange-light"> Dashboard </router-link> -->
         <div @click="toggleMenu" class="cursor-pointer flex items-center gap-2 font-semibold">
-          <img :src="user.photo" class="w-10 h-10 rounded-full" />
+          <!-- <img :src="user.photo" class="w-10 h-10 rounded-full" /> -->
+          <img :src="'https://i.pravatar.cc/150?img=12'" class="w-10 h-10 rounded-full" />
           <span>{{ user.name }}</span>
         </div>
       </div>
@@ -59,19 +71,34 @@
           Feedback
         </div>
 
-        <div
-          @click="closeMenu"
-          class="hover:bg-orange-light/20 p-2 rounded cursor-pointer text-red-600"
+        <button
+          type="button"
+          @click="handleLogoutFromMenu"
+          class="w-full rounded-full bg-orange-400 hover:bg-orange-500 text-white font-semibold py-2 text-sm transition crusor-pointer"
         >
           Logout
-        </div>
+        </button>
       </div>
+    </div>
+    <div v-else>
+      <button
+        @click="handleLogin"
+        class="rounded-full bg-white hover:bg-gray-100 text-orange-500 font-semibold py-2 px-4 text-sm mr-4 transition hover:cursor-pointer"
+      >
+        Login
+      </button>
+      <button
+        @click="handleRegister"
+        class="rounded-full bg-yellow-400 hover:bg-yellow-100 text-black hover:text-orange-500 font-semibold py-2 px-4 text-sm transition hover:cursor-pointer"
+      >
+        Register
+      </button>
     </div>
   </nav>
 
   <div
     v-if="showFeedback"
-    class="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-[9999]"
+    class="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-9999"
     @click.self="closeFeedback"
   >
     <div class="bg-white-soft p-8 rounded-xl shadow-xl w-[450px] max-w-full">
@@ -119,12 +146,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
-import { useUserStore } from '../stores/userStore'
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router' // Import router
+import { useAuthStore } from '../stores/auth'
 
-const userStore = useUserStore()
-const user = userStore.$state
+const authStore = useAuthStore()
+const isAuthenticated = computed(() => authStore.isAuthenticated)
+const user = computed(
+  () => authStore.user ?? { name: 'Pengguna', photo: 'https://i.pravatar.cc/150?img=12' },
+)
 const router = useRouter() // Init router
 
 /* STATE */
@@ -182,7 +212,27 @@ const handleClickOutside = (e) => {
   }
 }
 
+const handleLogout = async () => {
+  await authStore.logout()
+  alert('Logout berhasil')
+  router.push('/login')
+}
+
+const handleLogoutFromMenu = async () => {
+  await handleLogout()
+  closeMenu()
+}
+
+const handleRegister = () => {
+  router.push('/register')
+}
+
+const handleLogin = () => {
+  router.push('/login')
+}
+
 onMounted(() => {
+  if (authStore.token && !authStore.user) authStore.fetchProfile()
   document.addEventListener('click', handleClickOutside)
 })
 

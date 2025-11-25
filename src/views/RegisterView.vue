@@ -25,7 +25,7 @@ const handleRegister = async () => {
 
   // Jika berhasil, redirect ke dashboard
   if (success) {
-    router.push('/dashboard')
+    router.push('/')
   }
 }
 </script>
