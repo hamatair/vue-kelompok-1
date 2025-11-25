@@ -1,3 +1,4 @@
+import { useAuthStore } from '@/stores/auth'
 import { createRouter, createWebHistory } from 'vue-router'
 
 import Profile from '../views/Profile.vue'
@@ -10,6 +11,10 @@ import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 
 const routes = [
+  {
+    path: '/',
+    redirect: '/login', // SPA pertama kali ke halaman login
+  },
   {
     path: '/login',
     name: 'login',
@@ -30,6 +35,14 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+})
+
+router.beforeEach((to, from, next) => {
+  const auth = useAuthStore()
+  if (to.name === 'dashboard' && !auth.token) next({ name: 'login' })
+  else if ((to.name === 'login' || to.name === 'register') && auth.token)
+    next({ name: 'dashboard' })
+  else next()
 })
 
 router.beforeEach((to, from, next) => {
