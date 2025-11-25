@@ -83,6 +83,23 @@ onMounted(async () => {
             <p class="text-xs text-gray-500 mt-2">Energi minimal yang dibakar tubuh saat istirahat total.</p>
           </div>
 
+          <!-- Kartu Aktivitas Fisik BARU -->
+          <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+            <div class="flex items-center gap-3 mb-4">
+              <div
+                class="w-12 h-12 rounded-xl bg-orange-50 flex items-center justify-center text-orange-600 text-xl shadow-sm">
+                <i class="fa-solid fa-person-running"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-800 text-lg">Tingkat Aktivitas</h3>
+                <p class="text-xs text-gray-400 font-medium">Faktor Pengali Kalori</p>
+              </div>
+            </div>
+            <p class="text-2xl font-bold text-gray-800 capitalize">{{
+              recommendationData.user_profile.activity_level.replace(/_/g, ' ') }}</p>
+            <p class="text-xs text-gray-500 mt-2">Level ini digunakan untuk mengalikan BMR Anda.</p>
+          </div>
+
           <!-- Kartu Profil Fisik -->
           <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
             <div class="flex items-center gap-3 mb-4">
