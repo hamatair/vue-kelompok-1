@@ -17,6 +17,7 @@ import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import KonsultasiDetail from '@/views/KonsultasiDetail.vue'
 import KonsultasiList from '@/views/KonsultasiList.vue'
+import ProgresNutrisi from '@/views/ProgresNutrisi.vue'
 
 const routes = [
   { path: '/', component: Home, name: 'home' },

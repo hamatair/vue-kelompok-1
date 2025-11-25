@@ -1,6 +1,5 @@
 <template>
   <nav class="w-full px-6 py-4 flex justify-between items-center bg-orange text-white-soft">
-<<<<<<< HEAD
     <div>
       <router-link to="/" class="flex items-center gap-2 font-bold text-lg cursor-pointer">
         <img
@@ -10,16 +9,6 @@
         />
         <div class="text-xl font-bold tracking-wide text-white">CALMATE</div>
       </router-link>
-||||||| d0a6ead
-
-    <!-- Logo -->
-    <div class="flex items-center gap-2 font-bold text-lg">
-      <span>LOGO</span>
-=======
-
-    <div class="flex items-center gap-2 font-bold text-lg">
-      <span>LOGO</span>
->>>>>>> origin/main
     </div>
 
     <div class="flex gap-8 font-semibold text-white-soft">
@@ -32,7 +21,6 @@
       >
     </div>
 
-<<<<<<< HEAD
     <div v-if="isAuthenticated" class="relative" ref="menuRef">
       <div class="cursor-pointer flex items-center gap-2 font-semibold">
         <router-link
@@ -51,21 +39,8 @@
           <img :src="'https://i.pravatar.cc/150?img=12'" class="w-10 h-10 rounded-full" />
           <span>{{ user.name }}</span>
         </div>
-||||||| d0a6ead
-    <!-- User -->
-    <div class="relative" ref="menuRef">
-      <div @click="toggleMenu" class="cursor-pointer flex items-center gap-2 font-semibold">
-        <img :src="user.photo" class="w-10 h-10 rounded-full" />
-        <span>{{ user.name }}</span>
-=======
-    <div class="relative" ref="menuRef">
-      <div @click="toggleMenu" class="cursor-pointer flex items-center gap-2 font-semibold">
-        <img :src="user.photo" class="w-10 h-10 rounded-full" />
-        <span>{{ user.name }}</span>
->>>>>>> origin/main
       </div>
 
-<<<<<<< HEAD
       <div
         v-if="showMenu"
         class="absolute right-0 mt-3 w-56 bg-white-soft text-black-base rounded-lg shadow-lg p-4 flex flex-col gap-3 z-50"
@@ -75,16 +50,6 @@
           class="hover:bg-orange-light/20 p-2 rounded block"
           to="/profile"
         >
-||||||| d0a6ead
-      <div v-if="showMenu"
-        class="absolute right-0 mt-3 w-56 bg-white-soft text-black-base rounded-lg shadow-lg p-4 flex flex-col gap-3 z-50">
-        <router-link @click="closeMenu" class="hover:bg-orange-light/20 p-2 rounded" to="/profile">
-=======
-      <div v-if="showMenu"
-        class="absolute right-0 mt-3 w-56 bg-white-soft text-black-base rounded-lg shadow-lg p-4 flex flex-col gap-3 z-50">
-        
-        <router-link @click="closeMenu" class="hover:bg-orange-light/20 p-2 rounded block" to="/profile">
->>>>>>> origin/main
           Profile
         </router-link>
 
@@ -95,16 +60,10 @@
           Riwayat Kesehatan
         </div>
 
-<<<<<<< HEAD
         <div
           @click="openProgressNutrisi"
           class="hover:bg-orange-light/20 p-2 rounded cursor-pointer"
         >
-||||||| d0a6ead
-        <div @click="closeMenu" class="hover:bg-orange-light/20 p-2 rounded cursor-pointer">
-=======
-        <div @click="openProgressNutrisi" class="hover:bg-orange-light/20 p-2 rounded cursor-pointer">
->>>>>>> origin/main
           Progress Nutrisi
         </div>
 
@@ -137,20 +96,11 @@
     </div>
   </nav>
 
-<<<<<<< HEAD
   <div
     v-if="showFeedback"
     class="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-9999"
     @click.self="closeFeedback"
   >
-||||||| d0a6ead
-  <!-- FEEDBACK MODAL -->
-  <div v-if="showFeedback" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-[9999]"
-    @click.self="closeFeedback">
-=======
-  <div v-if="showFeedback" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-[9999]"
-    @click.self="closeFeedback">
->>>>>>> origin/main
     <div class="bg-white-soft p-8 rounded-xl shadow-xl w-[450px] max-w-full">
       <h2 class="text-2xl font-bold text-black-base mb-2">Nilai Aplikasi Kami!</h2>
       <p class="text-gray-700 mb-6 leading-relaxed">
@@ -184,19 +134,10 @@
         >
           Batal
         </button>
-<<<<<<< HEAD
         <button
           @click="submitFeedback"
           class="px-5 py-2 bg-orange text-white-soft rounded-md font-semibold hover:bg-orange-light"
         >
-||||||| d0a6ead
-
-        <button @click="submitFeedback"
-          class="px-5 py-2 bg-orange text-white-soft rounded-md font-semibold hover:bg-orange-light">
-=======
-        <button @click="submitFeedback"
-          class="px-5 py-2 bg-orange text-white-soft rounded-md font-semibold hover:bg-orange-light">
->>>>>>> origin/main
           Kirim
         </button>
       </div>
@@ -205,34 +146,16 @@
 </template>
 
 <script setup>
-<<<<<<< HEAD
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useRouter } from 'vue-router' // Import router
 import { useAuthStore } from '../stores/auth'
-||||||| d0a6ead
-import { ref, onMounted, onBeforeUnmount } from "vue";
-import { useUserStore } from "../stores/userStore";
-=======
-import { ref, onMounted, onBeforeUnmount } from "vue";
-import { useUserStore } from "../stores/userStore";
-import { useRouter } from "vue-router"; // Import router
->>>>>>> origin/main
 
-<<<<<<< HEAD
 const authStore = useAuthStore()
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 const user = computed(
   () => authStore.user ?? { name: 'Pengguna', photo: 'https://i.pravatar.cc/150?img=12' },
 )
 const router = useRouter() // Init router
-||||||| d0a6ead
-const userStore = useUserStore();
-const user = userStore.$state;
-=======
-const userStore = useUserStore();
-const user = userStore.$state;
-const router = useRouter(); // Init router
->>>>>>> origin/main
 
 /* STATE */
 const showFeedback = ref(false)
@@ -248,7 +171,6 @@ const closeMenu = () => (showMenu.value = false)
 
 /* NAVIGASI (Function Style) */
 const openRiwayatKesehatan = () => {
-<<<<<<< HEAD
   closeMenu()
   router.push('/riwayat-kesehatan')
 }
@@ -258,21 +180,6 @@ const openProgressNutrisi = () => {
   closeMenu()
   router.push('/progress')
 }
-||||||| d0a6ead
-  closeMenu(); // tutup dropdown dulu
-  router.push("/riwayat-kesehatan"); // lalu navigate
-};
-=======
-  closeMenu();
-  router.push("/riwayat-kesehatan");
-};
-
-// PROGRESS NUTRISI
-const openProgressNutrisi = () => {
-  closeMenu();
-  router.push("/progress");
-};
->>>>>>> origin/main
 
 /* FEEDBACK HANDLERS */
 const openFeedback = () => {
@@ -294,26 +201,11 @@ const submitFeedback = () => {
   console.log('Feedback terkirim:', {
     rating: rating.value,
     comment: text.value,
-<<<<<<< HEAD
   })
   closeFeedback()
 }
 
 /* AUTO CLOSE */
-||||||| d0a6ead
-  });
-
-  closeFeedback();
-};
-
-/* AUTO CLOSE menu ketika klik luar */
-=======
-  });
-  closeFeedback();
-};
-
-/* AUTO CLOSE */
->>>>>>> origin/main
 const handleClickOutside = (e) => {
   if (menuRef.value && !menuRef.value.contains(e.target)) {
     showMenu.value = false
@@ -345,16 +237,6 @@ onMounted(() => {
 })
 
 onBeforeUnmount(() => {
-<<<<<<< HEAD
   document.removeEventListener('click', handleClickOutside)
 })
 </script>
-||||||| d0a6ead
-  document.removeEventListener("click", handleClickOutside);
-});
-</script>
-=======
-  document.removeEventListener("click", handleClickOutside);
-});
-</script>
->>>>>>> origin/main
