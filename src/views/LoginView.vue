@@ -11,7 +11,7 @@ const form = reactive({ email: '', password: '' })
 
 const handleLogin = async () => {
   if (await auth.login(form)) {
-    router.push('/dashboard')
+    router.push('/')
   }
 }
 </script>

@@ -17,7 +17,7 @@ defineProps({
 
                 <!-- LOGO BARU (GAMBAR) -->
                 <!-- Menggunakan @/assets/logo.png akan otomatis diproses oleh Vite -->
-                <img src="@/assets/logo.png" alt="Logo Aplikasi" class="auth-logo" />
+                <img src="@/assets/Logo.png" alt="Logo Aplikasi" class="auth-logo" />
 
                 <h1 class="auth-title">{{ title }}</h1>
             </div>
