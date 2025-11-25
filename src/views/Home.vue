@@ -27,20 +27,11 @@
             >
               Mulai Sekarang
             </RouterLink>
-
-            <RouterLink
-              to="/about"
-              class="inline-flex items-center justify-center px-4 py-2.5 rounded-full bg-white hover:bg-slate-50 text-sm font-medium text-slate-900 border border-orange-200 transition"
-            >
-              Pelajari lebih lanjut
-            </RouterLink>
           </div>
         </div>
 
-        <!-- Ilustrasi dengan aksen oranye -->
         <div class="flex justify-center md:justify-end w-full md:w-fit md:ms-auto">
           <div class="relative">
-            <!-- blob oranye di belakang -->
             <div
               class="absolute -top-6 -left-6 w-40 h-40 rounded-[2.5rem] bg-orange-200/60 blur-sm"
             ></div>
@@ -48,7 +39,6 @@
             <div
               class="relative w-64 h-64 sm:w-72 sm:h-72 rounded-full bg-orange-50 shadow-2xl flex items-center internal justify-center overflow-hidden"
             >
-              <!-- Ganti dengan <img> jika sudah ada -->
               <img
                 src="../assets/illustration-healthy-food.png"
                 alt="Ilustrasi makanan sehat"
@@ -74,7 +64,6 @@
         </div>
 
         <div class="mt-10 grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <!-- Artikel Kesehatan -->
           <div class="rounded-2xl bg-white shadow-md px-5 py-6 flex flex-col gap-2">
             <div class="w-9 h-9 rounded-full bg-orange-50 flex items-center justify-center">
               <FontAwesomeIcon :icon="icons.article" class="w-5 h-5 text-orange-500" />
@@ -86,7 +75,6 @@
             </p>
           </div>
 
-          <!-- Progress Nutrisi -->
           <div class="rounded-2xl bg-white shadow-md px-5 py-6 flex flex-col gap-2">
             <div class="w-9 h-9 rounded-full bg-orange-50 flex items-center justify-center">
               <FontAwesomeIcon :icon="icons.progress" class="w-5 h-5 text-orange-500" />
@@ -122,7 +110,6 @@
             </p>
           </div>
 
-          <!-- Konsultasi / Chatbot -->
           <div class="rounded-2xl bg-white shadow-md px-5 py-6 flex flex-col gap-2">
             <div class="w-9 h-9 rounded-full bg-orange-50 flex items-center justify-center">
               <FontAwesomeIcon :icon="icons.chat" class="w-5 h-5 text-orange-500" />
@@ -134,7 +121,6 @@
             </p>
           </div>
 
-          <!-- Feedback -->
           <div class="rounded-2xl bg-white shadow-md px-5 py-6 flex flex-col gap-2">
             <div class="w-9 h-9 rounded-full bg-orange-50 flex items-center justify-center">
               <FontAwesomeIcon :icon="icons.feedback" class="w-5 h-5 text-orange-500" />
@@ -154,7 +140,6 @@
       <div
         class="max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-[1.1fr,1.3fr] gap-8 items-center"
       >
-        <!-- Teks kiri -->
         <div>
           <h2 class="text-2xl sm:text-3xl font-bold">
             Untuk siapa <span class="text-yellow-200">CalMate</span> dibuat?
@@ -165,9 +150,7 @@
           </p>
         </div>
 
-        <!-- List kanan -->
         <div class="flex flex-col gap-4">
-          <!-- Profesional sibuk -->
           <div class="flex gap-3 items-start border-b border-orange-200/50 pb-4">
             <div class="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center">
               <FontAwesomeIcon :icon="icons.professional" class="w-5 h-5 text-orange-500" />
@@ -281,7 +264,6 @@
       </div>
     </section>
 
-    <!-- CTA BAWAH -->
     <section class="py-10 bg-orange-400/10">
       <div
         class="max-w-5xl mx-auto px-4 sm:px-6 py-8 rounded-3xl bg-orange-400 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg"
@@ -296,12 +278,12 @@
           </p>
         </div>
 
-        <RouterLink
+        <router-link
           to="/register"
           class="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-white text-sm font-semibold text-orange-500 shadow-md hover:bg-orange-50 transition"
         >
           Daftar Sekarang
-        </RouterLink>
+        </router-link>
       </div>
     </section>
   </main>
