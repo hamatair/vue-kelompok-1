@@ -27,6 +27,7 @@ const routes = [
   { path: '/artikel', component: Artikel },
   { path: '/rekomendasi', component: Rekomendasi },
   { path: '/riwayat-kesehatan', component: RiwayatKesehatan },
+  { path: '/progress', component: ProgresNutrisi },
 
   // Route Detail Artikel (Dynamic)
   { path: '/artikel/:id', component: ArtikelDetail },
