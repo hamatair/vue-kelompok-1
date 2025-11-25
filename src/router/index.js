@@ -6,6 +6,7 @@ import Artikel from "../views/Artikel.vue";
 import Rekomendasi from "../views/Rekomendasi.vue";
 import EditProfile from "../views/EditProfile.vue";
 import RiwayatKesehatan from "@/views/RiwayatKesehatan.vue";
+import ProgresNutrisi from "../views/ProgresNutrisi.vue";
 
 const routes = [
   { path: "/", component: Home },
@@ -14,6 +15,7 @@ const routes = [
   { path: "/artikel", component: Artikel },
   { path: "/rekomendasi", component: Rekomendasi },
   { path: "/riwayat-kesehatan", component: RiwayatKesehatan },
+  { path: "/progress", component: ProgresNutrisi },
 ];
 
 const router = createRouter({
