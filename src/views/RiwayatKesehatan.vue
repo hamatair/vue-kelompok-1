@@ -88,11 +88,23 @@
         <input v-model="newData.description" type="text" placeholder="Isi keterangan" class="w-full mb-4 border rounded-md px-3 py-2"/>
 
         <div class="grid grid-cols-2 gap-4 mb-4">
-          <select v-model="newData.category" class="border rounded-md px-3 py-2">
-            <option>Penyakit</option>
-            <option>Operasi</option>
+          <select
+            v-model="newData.category"
+            class="border rounded-md px-3 py-2"
+          >
+            <option value="" disabled hidden>Pilih Kategori</option>
+            <option value="Alergi">Alergi</option>
+            <option value="Penyakit">Penyakit</option>
+            <option value="Vaksinasi">Vaksinasi</option>
+            <option value="Operasi">Operasi</option>
           </select>
-          <input v-model="newData.date" type="date" class="border rounded-md px-3 py-2"/>
+
+          <input
+            v-model="newData.date"
+            type="date"
+            class="border rounded-md px-3 py-2"
+          />
+
         </div>
 
         <input v-model="newData.file" type="text" placeholder="nama file (opsional)" class="border rounded-md px-3 py-2 w-full"/>
@@ -115,7 +127,9 @@
 
         <div class="grid grid-cols-2 gap-4 mb-4">
           <select v-model="editItem.category" class="border rounded-md px-3 py-2">
+            <option>Alergi</option>
             <option>Penyakit</option>
+            <option>Vaksinasi</option>
             <option>Operasi</option>
           </select>
           <input type="date" v-model="editItem.date" class="border rounded-md px-3 py-2"/>
@@ -161,7 +175,10 @@ const showModal = ref(false);
 const newData = ref({ description: "", category: "", date: "", file: "" });
 
 const openModal = () => (showModal.value = true);
-const closeModal = () => (showModal.value = false);
+const closeModal = () => {
+  showModal.value = false;
+  newData.value = { description: "", category: "", date: "", file: "" };
+};
 
 const saveNew = () => {
   healthStore.addRecord({ ...newData.value });
