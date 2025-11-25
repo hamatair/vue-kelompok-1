@@ -1,17 +1,22 @@
-<script setup>
-import { RouterView } from 'vue-router';
-import './assets/main.css';
-</script>
-
 <template>
-  <!-- Hanya boleh ada satu RouterView di sini sebagai pintu masuk utama -->
-  <RouterView />
+  <div class="min-h-screen bg-white-soft text-black-base">
+    <Navbar />
+    <router-view />
+    <ChatBotWidget v-if="authStore.isAuthenticated" />
+    <Footer />
+  </div>
 </template>
 
-<style>
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  background-color: #f3f4f6;
-}
-</style>
+<script setup>
+import { onMounted } from 'vue'
+// import ChatBotWidget from './components/ChatBotWidget.vue'
+import Footer from './components/Footer.vue'
+import Navbar from './components/Navbar.vue'
+import { useAuthStore } from './stores/auth'
+
+const authStore = useAuthStore()
+
+onMounted(() => {
+  authStore.fetchProfile()
+})
+</script>

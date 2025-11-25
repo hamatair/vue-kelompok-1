@@ -1,4 +1,4 @@
-import Api from '@/services/AxiosClient' // <-- PASTIKAN PATH INI BENAR!
+import Api from '@/services/AxiosClient'
 import { defineStore } from 'pinia'
 
 export const useAuthStore = defineStore('auth', {
@@ -12,8 +12,6 @@ export const useAuthStore = defineStore('auth', {
     isAuthenticated: (state) => !!state.token,
   },
   actions: {
-    // Dipanggil saat aplikasi dimuat untuk mengatur header,
-    // jika token sudah ada di localStorage.
     initialize() {
       if (this.token) {
         // Set token ke header default dari instance Api
@@ -96,15 +94,13 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async logout() {
-      if (!this.token) return // Tidak ada yang perlu dilogout
+      if (!this.token) return
 
       try {
-        // Kirim request logout (jika ada endpoint logout di Laravel)
         await Api.post('/logout')
       } catch (error) {
         console.error('Logout request failed, but clearing local state anyway.', error)
       } finally {
-        // Bersihkan state lokal dan hapus header dari instance Api
         this.token = null
         this.user = null
         localStorage.removeItem('token')

@@ -1,8 +1,8 @@
 <script setup>
-import { useAuthStore } from '@/stores/auth';
-import { reactive, ref } from 'vue';
+import { useAuthStore } from '@/stores/auth'
+import { reactive, ref } from 'vue'
 import { RouterLink, useRouter } from 'vue-router'; // Tambahkan RouterLink di sini
-import AuthLayout from '../components/AuthLayout.vue';
+import AuthLayout from '../components/AuthLayout.vue'
 
 const router = useRouter()
 const auth = useAuthStore()
@@ -20,18 +20,18 @@ const handleLogin = async () => {
   <AuthLayout title="Login" :error="auth.error">
     <!-- FORM LOGIN LENGKAP -->
     <form @submit.prevent="handleLogin" class="space-y-5">
-
       <!-- Input Email -->
       <div>
         <label class="block text-black font-bold text-lg mb-1">Email</label>
-        <input type="email" v-model="form.email" class="custom-input" required placeholder="email@example.com">
+        <input type="email" v-model="form.email" class="custom-input" required placeholder="email@example.com" />
       </div>
 
       <!-- Input Password -->
       <div>
         <label class="block text-black font-bold text-lg mb-1">Password</label>
         <div class="relative">
-          <input :type="showPassword ? 'text' : 'password'" v-model="form.password" class="custom-input pr-10" required>
+          <input :type="showPassword ? 'text' : 'password'" v-model="form.password" class="custom-input pr-10"
+            required />
           <!-- Tombol Intip Password -->
           <button type="button" @click="showPassword = !showPassword"
             class="absolute right-3 top-3 text-gray-600 focus:outline-none">
@@ -45,7 +45,6 @@ const handleLogin = async () => {
         <span v-if="auth.loading">Loading...</span>
         <span v-else>Login Account</span>
       </button>
-
     </form>
 
     <!-- Footer Link -->

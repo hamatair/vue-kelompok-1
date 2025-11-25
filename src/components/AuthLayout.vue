@@ -1,23 +1,20 @@
 <script setup>
 defineProps({
     title: String,
-    error: String
+    error: String,
 })
 </script>
 
 <template>
     <!-- 1. Wrapper Utama (Layar Penuh & Center) -->
     <div class="auth-wrapper">
-
         <!-- 2. Kartu Putih (Lebar Terbatas) -->
         <div class="auth-card animate-fade-in">
-
             <!-- Header: Logo & Judul -->
             <div class="auth-header">
-
                 <!-- LOGO BARU (GAMBAR) -->
                 <!-- Menggunakan @/assets/logo.png akan otomatis diproses oleh Vite -->
-                <img src="@/assets/Logo.png" alt="Logo Aplikasi" class="auth-logo" />
+                <img src="@/assets/logo.png" alt="Logo Aplikasi" class="auth-logo" />
 
                 <h1 class="auth-title">{{ title }}</h1>
             </div>
@@ -32,7 +29,6 @@ defineProps({
                     <span class="font-bold">{{ error }}</span>
                 </div>
             </div>
-
         </div>
     </div>
 </template>
