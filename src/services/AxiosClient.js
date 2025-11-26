@@ -8,4 +8,10 @@ const Api = axios.create({
   },
 })
 
+export function getArticles(params) {
+  // Meneruskan params ke axios
+  // Jika params.all ada, axios akan membuat query string: ?all=true
+  return apiClient.get('/api/articles', { params });
+}
+
 export default Api

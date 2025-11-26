@@ -56,7 +56,7 @@ const getCategoryColor = (cat) => {
                     <div class="mb-10">
                         <span class="inline-block text-white px-4 py-1.5 rounded-full text-sm font-medium"
                             :class="getCategoryColor(article.category)">
-                            {{ article.category }}
+                            {{ article.category.name }}
                         </span>
                     </div>
 
@@ -102,12 +102,12 @@ const getCategoryColor = (cat) => {
                         <div @click="router.push(`/artikel/${relatedArticle.id}`)"
                             class="bg-white rounded-xl border border-gray-100 p-4 shadow-sm cursor-pointer hover:shadow-md transition">
                             <div class="h-32 rounded-lg overflow-hidden mb-3">
-                                <img :src="relatedArticle.image" class="w-full h-full object-cover">
+                                <img :src="relatedArticle.image || 'https://domf5oio6qrcr.cloudfront.net/medialibrary/16291/18b0cdaf-cd84-4714-8a63-72d5dc8767e11.jpg'" class="w-full h-full object-cover">
                             </div>
 
                             <span
                                 class="bg-orange-500 text-white text-[10px] px-2 py-0.5 rounded-full font-bold uppercase tracking-wider">
-                                {{ relatedArticle.category }}
+                                {{ relatedArticle.category.name }}
                             </span>
 
                             <h4 class="font-bold text-gray-900 mt-2 mb-1 leading-tight">
@@ -135,7 +135,7 @@ const getCategoryColor = (cat) => {
 
                     <div
                         class="w-full h-[400px] md:h-[500px] rounded-r-3xl rounded-bl-3xl overflow-hidden mb-8 shadow-sm">
-                        <img :src="article.image" :alt="article.title" class="w-full h-full object-cover">
+                        <img :src="article.image || 'https://domf5oio6qrcr.cloudfront.net/medialibrary/16291/18b0cdaf-cd84-4714-8a63-72d5dc8767e11.jpg'" :alt="article.title" class="w-full h-full object-cover">
                     </div>
 
                     <div class="prose prose-lg max-w-none text-gray-800 font-serif leading-relaxed">
