@@ -37,7 +37,7 @@
           v-model="text"
           placeholder="Tambahkan feedback..."
           rows="4"
-          class="w-full border border-orange-light rounded-md px-3 py-2"
+          class="w-full border border-orange-light rounded-md px-3 py-2 text-black-base"
         ></textarea>
       </div>
 

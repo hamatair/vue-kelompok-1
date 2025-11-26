@@ -1,165 +1,179 @@
 <template>
-    <div class="max-w-full mx-auto px-20">
+  <div class="max-w-full mx-auto px-20">
 
-        <!-- CROP MODAL -->
-        <CropperModal v-if="cropSrc" :src="cropSrc" @save="applyCrop" @cancel="cropSrc = null" />
+    <!-- MODAL CROP -->
+    <CropperModal 
+      v-if="cropSrc" 
+      :src="cropSrc" 
+      @save="applyCrop" 
+      @cancel="cancelCrop" 
+    />
 
-        <!-- Section 1 -->
-        <div class="bg-white-soft p-6 border-b border-orange-light/40">
-            <div class="flex justify-between items-center">
+    <div class="bg-white-soft p-6 border-b border-orange-light/40 flex justify-between">
+      <div class="flex gap-5">
 
-                <div class="flex gap-5">
-                    <div class="relative">
-                        <img :src="localUser.photo"
-                            class="w-24 h-24 rounded-full border border-orange-light object-cover" />
+        <img
+          :src="previewPhoto"
+          class="w-24 h-24 rounded-full border border-orange-light object-cover"
+        />
 
-                        <input ref="fileInput" type="file" accept="image/*" class="hidden"
-                            @change="handlePhotoChange" />
-                    </div>
+        <button @click="triggerUpload"
+          class="h-fit px-4 py-2 bg-orange text-white-soft rounded-md font-semibold hover:bg-orange-light">
+          Ubah Foto Profil
+        </button>
 
-                    <div class="flex flex-col justify-center gap-2">
-                        <button @click="triggerUpload"
-                            class="w-fit px-4 py-2 bg-orange text-white-soft rounded-md font-semibold hover:bg-orange-light transition flex items-center gap-2">
-                            <FontAwesomeIcon icon="fa-regular fa-pen-to-square" />
-                            Ubah Foto Profil
-                        </button>
-                    </div>
-                </div>
+        <input 
+          ref="fileInput" 
+          type="file" 
+          accept="image/*" 
+          class="hidden" 
+          @change="handlePhotoChange" 
+        />
+      </div>
 
-                <!-- tombol kembali -->
-                <router-link to="/profile"
-                    class="px-4 py-2 bg-gray-300 text-black-base rounded-md font-semibold hover:bg-gray-400 transition">
-                    Kembali
-                </router-link>
+      <router-link to="/profile"
+        class="px-4 py-2 h-fit bg-gray-300 text-black-base rounded-md font-semibold hover:bg-gray-400">
+        Kembali
+      </router-link>
+    </div>
 
-            </div>
+    <div class="bg-white-soft space-y-6 py-6">
+
+      <div class="grid grid-cols-2 gap-6">
+        <ProfileField label="Nama" v-model="form.name" />
+
+        <div class="flex flex-col">
+          <label class="font-semibold mb-1">Email</label>
+          <div class="border border-black-base bg-gray-200 text-black-base rounded-md px-3 py-2">
+            {{ form.email }}
+          </div>
         </div>
 
-        <!-- FORM SECTION -->
-        <div class="bg-white-soft">
+        <ProfileField label="Tanggal Lahir" v-model="form.date_of_birth" type="date" />
+        <ProfileField label="Jenis Kelamin" v-model="form.gender" type="select">
+          <option value="male">Pria</option>
+          <option value="female">Wanita</option>
+        </ProfileField>
 
-            <div class="grid grid-cols-2 gap-6 mt-6 border-b border-orange-light/40 pb-6">
+        <ProfileField label="Height (cm)" v-model="form.height_cm" type="number" />
+        <ProfileField label="Weight (kg)" v-model="form.weight_kg" type="number" />
 
-                <!-- NAMA -->
-                <div class="flex flex-col">
-                    <label class="font-semibold mb-1">Nama</label>
-                    <input v-model="localUser.name" class="border border-black-base rounded-md px-3 py-2" />
-                </div>
+        <ProfileField label="Activity Level" v-model="form.activity" type="select">
+          <option value="jarang">Jarang</option>
+          <option value="olahraga_ringan">Olahraga ringan</option>
+          <option value="olahraga_sedang">Olahraga sedang</option>
+          <option value="olahraga_berat">Olahraga berat</option>
+          <option value="sangat_berat">Sangat berat</option>
+        </ProfileField>
+      </div>
 
-                <!-- EMAIL -->
-                <div class="flex flex-col">
-                    <label class="font-semibold mb-1">Email</label>
-                    <input v-model="localUser.email" class="border border-black-base rounded-md px-3 py-2" />
-                </div>
+      <div class="flex justify-end">
+        <button @click="saveChanges"
+          class="px-6 py-3 bg-orange text-white-soft rounded-md font-semibold hover:bg-black-base">
+          Selesai
+        </button>
+      </div>
 
-                <!-- TGL LAHIR -->
-                <div class="flex flex-col">
-                    <label class="font-semibold mb-1">Tanggal Lahir</label>
-                    <div class="relative">
-                        <input v-model="localUser.birthDate" type="date"
-                            class="w-full border border-black-base rounded-md px-3 py-2 pr-10" />
-                        <FontAwesomeIcon icon="fa-regular fa-calendar"
-                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-600" />
-                    </div>
-                </div>
-
-                <!-- GENDER -->
-                <div class="flex flex-col">
-                    <label class="font-semibold mb-1">Jenis Kelamin</label>
-                    <select v-model="localUser.gender" class="border border-black-base rounded-md px-3 py-2">
-                        <option>Pria</option>
-                        <option>Wanita</option>
-                    </select>
-                </div>
-
-                <!-- HEIGHT -->
-                <div class="flex flex-col">
-                    <label class="font-semibold mb-1">Height (cm)</label>
-                    <input v-model.number="localUser.height" type="number"
-                        class="border border-black-base rounded-md px-3 py-2" />
-                </div>
-
-                <!-- WEIGHT -->
-                <div class="flex flex-col">
-                    <label class="font-semibold mb-1">Weight (kg)</label>
-                    <input v-model="localUser.weight" type="text"
-                        class="border border-black-base rounded-md px-3 py-2" />
-                </div>
-
-                <!-- ACTIVITY -->
-                <div class="flex flex-col">
-                    <label class="font-semibold mb-1">Activity Level</label>
-                    <select v-model="localUser.activity" class="border border-black-base rounded-md px-3 py-2">
-                        <option>Olahraga ringan</option>
-                        <option>Olahraga sedang</option>
-                        <option>Olahraga berat</option>
-                    </select>
-                </div>
-
-            </div>
-
-            <div class="mt-8 flex justify-end">
-                <button @click="saveChanges"
-                    class="px-6 py-3 bg-orange text-white-soft rounded-md font-semibold hover:bg-black-base transition">
-                    Selesai
-                </button>
-            </div>
-
-        </div>
+      <div v-if="error" class="text-red-600 text-center py-4 font-semibold">
+        {{ error }}
+      </div>
 
     </div>
+
+  </div>
 </template>
 
 <script setup>
-import { ref, reactive } from "vue";
-import { useUserStore } from "../stores/userStore";
-import CropperModal from "../components/CropperModal.vue";
+import { ref, reactive, computed } from "vue";
+import { useAuthStore } from "@/stores/auth";
+import ProfileField from "@/components/ProfileField.vue";
+import CropperModal from "@/components/CropperModal.vue";
 
-const store = useUserStore();
+const auth = useAuthStore();
+
 const fileInput = ref(null);
-
-// crop source (image before cropping)
 const cropSrc = ref(null);
+const croppedBase64 = ref(null);
+const finalFile = ref(null);
 
-// Copy initial state
-const localUser = reactive({
-    name: store.name,
-    email: store.email,
-    birthDate: store.birthDate,
-    gender: store.gender,
-    height: store.height,
-    weight: store.weight,
-    activity: store.activity,
-    photo: store.photo,
+function formatDate(dateStr) {
+  const d = new Date(dateStr);
+  return d.toISOString().split("T")[0];
+}
+
+const form = reactive({
+  name: auth.user.name,
+  email: auth.user.email,
+  date_of_birth: formatDate(auth.user.date_of_birth),
+  gender: auth.user.gender,
+  height_cm: auth.user.height_cm,
+  weight_kg: auth.user.weight_kg,
+  activity: auth.user.activity,
+  photo_url: auth.user.photo_url,
 });
 
-// Trigger file picker
-const triggerUpload = () => {
-    fileInput.value.click();
-};
+const previewPhoto = computed(() =>
+  croppedBase64.value
+    ? croppedBase64.value
+    : form.photo_url
+      ? '/storage/' + form.photo_url
+      : "https://i.pravatar.cc/150?img=12"
+);
 
-// Handle file select
+const triggerUpload = () => fileInput.value.click();
+
 const handlePhotoChange = (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  const file = e.target.files[0];
+  if (!file) return;
 
-    const reader = new FileReader();
-    reader.onload = () => {
-        cropSrc.value = reader.result; // buka modal cropper
-    };
-    reader.readAsDataURL(file);
+  const reader = new FileReader();
+  reader.onload = () => (cropSrc.value = reader.result);
+  reader.readAsDataURL(file);
 };
 
-// When crop finished
-const applyCrop = (finalImage) => {
-    localUser.photo = finalImage;
-    cropSrc.value = null;
+const applyCrop = (img) => {
+  croppedBase64.value = img;
+  finalFile.value = base64ToFile(img, "photo.png");
+  cropSrc.value = null;
 };
 
-// Save changes
-const saveChanges = () => {
-    store.$patch(localUser);
-    store.updatePhoto(localUser.photo);
+const cancelCrop = () => {
+  cropSrc.value = null;
+  croppedBase64.value = null;
+  finalFile.value = null;
+  if (fileInput.value) fileInput.value.value = "";
+};
+
+function base64ToFile(base64, filename) {
+  const arr = base64.split(",");
+  const mime = arr[0].match(/:(.*?);/)[1];
+  const bstr = atob(arr[1]);
+  let n = bstr.length;
+  const u8arr = new Uint8Array(n);
+  while (n--) u8arr[n] = bstr.charCodeAt(n);
+  return new File([u8arr], filename, { type: mime });
+}
+
+const error = ref(null);
+
+const saveChanges = async () => {
+  try {
+    const fd = new FormData();
+    fd.append("name", form.name);
+    fd.append("date_of_birth", formatDate(form.date_of_birth));
+    fd.append("gender", form.gender);
+    fd.append("height_cm", form.height_cm);
+    fd.append("weight_kg", form.weight_kg);
+    fd.append("activity", form.activity);
+
+    if (finalFile.value) {
+      fd.append("photo", finalFile.value);
+    }
+
+    await auth.updateProfile(fd);
     window.location.href = "/profile";
+  } catch (err) {
+    error.value = "Gagal menyimpan perubahan";
+  }
 };
 </script>

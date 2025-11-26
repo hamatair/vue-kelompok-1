@@ -1,16 +1,14 @@
 <!-- src/views/HomeView.vue -->
 <template>
   <main class="min-h-screen bg-white text-slate-900">
+
     <!-- HERO -->
     <section class="bg-white">
-      <div
-        class="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-40 grid md:grid-cols-[1.3fr_0.7fr] gap-10 items-center"
-      >
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12 md:py-40 grid md:grid-cols-[1.3fr_0.7fr] gap-10 items-center">
+
         <!-- Text -->
         <div>
-          <h1
-            class="mt-2 text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight text-orange-500"
-          >
+          <h1 class="mt-2 text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight text-orange-500">
             CALMATE
             <span class="block text-slate-950 text-3xl"> Jalan Anda Menuju Gaya Hidup Sehat </span>
           </h1>
@@ -21,7 +19,7 @@
           </p>
 
           <div class="mt-6 flex flex-wrap gap-3">
-            <router-link
+            <router-link 
               to="/register"
               class="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-orange-400 hover:bg-orange-500 text-sm font-semibold text-white shadow-md transition"
             >
@@ -30,267 +28,126 @@
           </div>
         </div>
 
+        <!-- Image -->
         <div class="flex justify-center md:justify-end w-full md:w-fit md:ms-auto">
           <div class="relative">
-            <div
-              class="absolute -top-6 -left-6 w-40 h-40 rounded-[2.5rem] bg-orange-200/60 blur-sm"
-            ></div>
+            <div class="absolute -top-6 -left-6 w-40 h-40 rounded-[2.5rem] bg-orange-200/60 blur-sm"></div>
 
-            <div
-              class="relative w-64 h-64 sm:w-72 sm:h-72 rounded-full bg-orange-50 shadow-2xl flex items-center internal justify-center overflow-hidden"
-            >
-              <img
+            <div class="relative w-64 h-64 sm:w-72 sm:h-72 rounded-full bg-orange-50 shadow-2xl flex items-center justify-center overflow-hidden">
+              <img 
                 src="../assets/illustration-healthy-food.png"
                 alt="Ilustrasi makanan sehat"
-                class="w-full h-full object-cover"
+                class="w-full h-full object-cover" 
               />
             </div>
           </div>
         </div>
+
       </div>
     </section>
 
-    <!-- MENGAPA MEMILIH CALMATE -->
+    <!-- MENGAPA CALMATE -->
     <section class="py-14 md:pt-20 md:pb-24 bg-orange-50">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
+
         <div class="text-center max-w-2xl mx-auto">
           <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">
             Mengapa memilih <span class="text-orange-500">CalMate</span>?
           </h2>
           <p class="mt-3 text-sm sm:text-base text-slate-600">
-            Semua fitur dirancang untuk mendukung perjalanan kesehatanmu, dari edukasi sampai
-            pemantauan nutrisi harian.
+            Semua fitur dirancang untuk mendukung perjalanan kesehatanmu...
           </p>
         </div>
 
-        <div class="mt-10 grid gap-5 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          <div class="rounded-2xl bg-white shadow-md px-5 py-6 flex flex-col gap-2">
+        <div class="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+
+          <!-- Card -->
+          <div 
+            v-for="(item, index) in iconCards" 
+            :key="index"
+            class="rounded-2xl bg-white shadow-md px-5 py-6 flex flex-col gap-2"
+          >
             <div class="w-9 h-9 rounded-full bg-orange-50 flex items-center justify-center">
-              <FontAwesomeIcon :icon="icons.article" class="w-5 h-5 text-orange-500" />
+              <FontAwesomeIcon :icon="item.icon" class="w-5 h-5 text-orange-500" />
             </div>
-            <h3 class="text-base font-semibold text-slate-900">Artikel Kesehatan</h3>
-            <p class="text-sm text-slate-600">
-              Baca artikel seputar nutrisi, pola makan, dan gaya hidup sehat yang dikurasi agar
-              mudah dipahami.
-            </p>
+            <h3 class="text-base font-semibold text-slate-900">{{ item.title }}</h3>
+            <p class="text-sm text-slate-600">{{ item.desc }}</p>
           </div>
 
-          <div class="rounded-2xl bg-white shadow-md px-5 py-6 flex flex-col gap-2">
-            <div class="w-9 h-9 rounded-full bg-orange-50 flex items-center justify-center">
-              <FontAwesomeIcon :icon="icons.progress" class="w-5 h-5 text-orange-500" />
-            </div>
-            <h3 class="text-base font-semibold text-slate-900">Progress Nutrisi</h3>
-            <p class="text-sm text-slate-600">
-              Pantau asupan kalori dan nutrisi harian dengan tampilan grafik dan ringkasan yang
-              informatif.
-            </p>
-          </div>
-
-          <!-- Rekomendasi -->
-          <div class="rounded-2xl bg-white shadow-md px-5 py-6 flex flex-col gap-2">
-            <div class="w-9 h-9 rounded-full bg-orange-50 flex items-center justify-center">
-              <FontAwesomeIcon :icon="icons.recommendation" class="w-5 h-5 text-orange-500" />
-            </div>
-            <h3 class="text-base font-semibold text-slate-900">Rekomendasi Personal</h3>
-            <p class="text-sm text-slate-600">
-              Dapatkan rekomendasi menu dan kebiasaan makan berdasarkan tujuan dan preferensi
-              pribadimu.
-            </p>
-          </div>
-
-          <!-- Riwayat Kesehatan -->
-          <div class="rounded-2xl bg-white shadow-md px-5 py-6 flex flex-col gap-2">
-            <div class="w-9 h-9 rounded-full bg-orange-50 flex items-center justify-center">
-              <FontAwesomeIcon :icon="icons.history" class="w-5 h-5 text-orange-500" />
-            </div>
-            <h3 class="text-base font-semibold text-slate-900">Riwayat Kesehatan</h3>
-            <p class="text-sm text-slate-600">
-              Simpan riwayat berat badan, catatan kondisi, dan perubahan dari waktu ke waktu dalam
-              satu tempat.
-            </p>
-          </div>
-
-          <div class="rounded-2xl bg-white shadow-md px-5 py-6 flex flex-col gap-2">
-            <div class="w-9 h-9 rounded-full bg-orange-50 flex items-center justify-center">
-              <FontAwesomeIcon :icon="icons.chat" class="w-5 h-5 text-orange-500" />
-            </div>
-            <h3 class="text-base font-semibold text-slate-900">Konsultasi / Chatbot</h3>
-            <p class="text-sm text-slate-600">
-              Ajukan pertanyaan seputar nutrisi kapan saja melalui chatbot yang selalu siap
-              membantumu.
-            </p>
-          </div>
-
-          <div class="rounded-2xl bg-white shadow-md px-5 py-6 flex flex-col gap-2">
-            <div class="w-9 h-9 rounded-full bg-orange-50 flex items-center justify-center">
-              <FontAwesomeIcon :icon="icons.feedback" class="w-5 h-5 text-orange-500" />
-            </div>
-            <h3 class="text-base font-semibold text-slate-900">Feedback Berkala</h3>
-            <p class="text-sm text-slate-600">
-              Terima feedback dan insight berkala untuk membantu kamu mengevaluasi progress dan
-              tetap konsisten.
-            </p>
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- UNTUK SIAPA CALMATE DIBUAT -->
-    <section class="py-14 bg-orange-400 text-white">
-      <div
-        class="max-w-6xl mx-auto px-4 sm:px-6 grid md:grid-cols-[1.1fr_1.3fr] gap-8 items-center"
-      >
-        <div>
-          <h2 class="text-2xl sm:text-3xl font-bold">
-            Untuk siapa <span class="text-yellow-200">CalMate</span> dibuat?
-          </h2>
-          <p class="mt-3 text-sm sm:text-base text-orange-50 max-w-md">
-            CalMate dirancang untuk mendampingi berbagai tipe pengguna yang ingin membangun
-            kebiasaan hidup lebih sehat tanpa harus ribet.
-          </p>
-        </div>
-
-        <div class="flex flex-col gap-4">
-          <div class="flex gap-3 items-start border-b border-orange-200/50 pb-4">
-            <div class="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center">
-              <FontAwesomeIcon :icon="icons.professional" class="w-5 h-5 text-orange-500" />
-            </div>
-            <div>
-              <h3 class="text-base font-semibold">Profesional sibuk</h3>
-              <p class="text-sm text-orange-50">
-                Kamu yang punya jadwal padat dan butuh cara praktis untuk memantau pola makan di
-                tengah aktivitas kerja.
-              </p>
-            </div>
-          </div>
-
-          <!-- Pelajar & mahasiswa -->
-          <div class="flex gap-3 items-start border-b border-orange-200/50 pb-4">
-            <div class="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center">
-              <FontAwesomeIcon :icon="icons.student" class="w-5 h-5 text-orange-500" />
-            </div>
-            <div>
-              <h3 class="text-base font-semibold">Pelajar & mahasiswa</h3>
-              <p class="text-sm text-orange-50">
-                Sedang belajar mengatur energi untuk kuliah, organisasi, dan aktivitas lain tanpa
-                mengorbankan kesehatan.
-              </p>
-            </div>
-          </div>
-
-          <!-- Pemantau kesehatan jangka panjang -->
-          <div class="flex gap-3 items-start">
-            <div class="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center">
-              <FontAwesomeIcon :icon="icons.heart" class="w-5 h-5 text-orange-500" />
-            </div>
-            <div>
-              <h3 class="text-base font-semibold">Pemantau kesehatan jangka panjang</h3>
-              <p class="text-sm text-orange-50">
-                Perlu mencatat berat badan, riwayat kesehatan, dan progress nutrisi agar bisa
-                dipantau bersama tenaga kesehatan.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BAGAIMANA CALMATE MEMBANTU KAMU -->
-    <section class="py-14 md:py-24 bg-white">
+    <!-- FEEDBACK -->
+    <section class="py-14 bg-white">
       <div class="max-w-6xl mx-auto px-4 sm:px-6">
-        <div class="text-center max-w-2xl mx-auto">
-          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">
-            Bagaimana CalMate membantu kamu
-          </h2>
+
+        <div class="flex items-center justify-between mb-6">
+          <h2 class="text-2xl font-bold text-slate-900">Feedback Pengguna</h2>
+
+          <button 
+            v-if="isAuthenticated"
+            @click="openFeedbackModal"
+            class="px-4 py-2 bg-orange text-white-soft rounded-full font-semibold shadow hover:bg-orange-light transition"
+          >
+            Beri Feedback
+          </button>
+
+          <button 
+            v-else 
+            @click="$router.push('/login')"
+            class="px-4 py-2 bg-orange text-white-soft rounded-full font-semibold shadow hover:bg-orange-light transition"
+          >
+            Login untuk Memberi Feedback
+          </button>
         </div>
 
-        <!-- Stepper -->
-        <div class="mt-10 relative">
-          <!-- garis horizontal hanya di md+ -->
-          <div class="hidden md:block absolute top-6 left-0 right-0 h-[3px] bg-orange-200"></div>
+        <div v-if="feedbackList.length === 0" class="text-slate-500 text-sm">
+          Belum ada feedback dari pengguna.
+        </div>
 
-          <div class="grid md:grid-cols-3 gap-10 md:gap-6 relative z-10">
-            <!-- Step 1 -->
-            <div class="flex md:block items-start gap-4">
-              <div
-                class="relative shrink-0 w-12 h-12 rounded-full bg-white border-4 border-orange-400 flex items-center justify-center text-orange-500 font-bold shadow-md md:mx-auto"
-              >
-                1
-              </div>
-              <div class="mt-2 md:mt-4 text-left md:text-center">
-                <h3 class="text-base font-semibold text-slate-900">Buat profil & tujuan</h3>
-                <p class="mt-1 text-sm text-slate-600">
-                  Masukkan data dasar, target berat badan, dan preferensi makanan untuk
-                  mempersonalisasi pengalamanmu.
-                </p>
-              </div>
+        <div 
+          v-else 
+          class="flex gap-4 overflow-x-auto scrollbar-hidden pb-3"
+        >
+          <div 
+            v-for="item in feedbackList"
+            :key="item.id"
+            class="min-w-[260px] max-w-[260px] bg-white shadow-md rounded-xl p-5 border border-orange-200 animate-fadeIn"
+          >
+
+            <div class="flex items-center mb-2">
+              <FontAwesomeIcon 
+                v-for="n in 5"
+                :key="n"
+                :icon="item.rating >= n ? 'fa-solid fa-star' : 'fa-regular fa-star'"
+                class="text-orange text-lg"
+              />
             </div>
 
-            <!-- Step 2 -->
-            <div class="flex md:block items-start gap-4">
-              <div
-                class="relative shrink-0 w-12 h-12 rounded-full bg-white border-4 border-orange-400 flex items-center justify-center text-orange-500 font-bold shadow-md md:mx-auto"
-              >
-                2
-              </div>
-              <div class="mt-2 md:mt-4 text-left md:text-center">
-                <h3 class="text-base font-semibold text-slate-900">Lacak & pantau progress</h3>
-                <p class="mt-1 text-sm text-slate-600">
-                  Catat asupan harian, pantau progress nutrisi, dan lihat rangkuman yang
-                  memudahkanmu memahami pola makan.
-                </p>
-              </div>
+            <p class="text-slate-700 text-sm mb-4">{{ item.comment }}</p>
+
+            <div class="text-xs text-slate-500">
+              {{ formatDate(item.created_at) }}
             </div>
 
-            <!-- Step 3 -->
-            <div class="flex md:block items-start gap-4">
-              <div
-                class="relative shrink-0 w-12 h-12 rounded-full bg-white border-4 border-orange-400 flex items-center justify-center text-orange-500 font-bold shadow-md md:mx-auto"
-              >
-                3
-              </div>
-              <div class="mt-2 md:mt-4 text-left md:text-center">
-                <h3 class="text-base font-semibold text-slate-900">
-                  Dapatkan insight & konsultasi
-                </h3>
-                <p class="mt-1 text-sm text-slate-600">
-                  Nikmati rekomendasi personal, artikel relevan, dan dukungan chatbot untuk membantu
-                  kamu mengambil keputusan yang lebih baik.
-                </p>
-              </div>
-            </div>
           </div>
         </div>
+
       </div>
+
+      <FeedbackModal 
+        v-if="showFeedbackModal"
+        @close="showFeedbackModal = false"
+        @submit="sendFeedback"
+      />
     </section>
 
-    <section class="py-10 bg-orange-400/10">
-      <div
-        class="max-w-5xl mx-auto px-4 sm:px-6 py-8 rounded-3xl bg-orange-400 text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-lg"
-      >
-        <div>
-          <h2 class="text-xl sm:text-2xl font-bold">
-            Siap memulai perjalanan hidup sehat bersama CalMate?
-          </h2>
-          <p class="mt-2 text-sm sm:text-base text-orange-50 max-w-xl">
-            Bangun kebiasaan makan yang lebih sehat dan terukur dengan dukungan artikel, tracking
-            nutrisi, dan konsultasi dalam satu aplikasi.
-          </p>
-        </div>
-
-        <router-link
-          to="/register"
-          class="inline-flex items-center justify-center px-6 py-2.5 rounded-full bg-white text-sm font-semibold text-orange-500 shadow-md hover:bg-orange-50 transition"
-        >
-          Daftar Sekarang
-        </router-link>
-      </div>
-    </section>
   </main>
 </template>
 
 <script>
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import {
   faBookOpen,
   faChartColumn,
@@ -301,25 +158,84 @@ import {
   faBriefcase,
   faGraduationCap,
   faHeart,
-} from '@fortawesome/free-solid-svg-icons'
+} from "@fortawesome/free-solid-svg-icons";
+
+import { useAuthStore } from "@/stores/auth";
+import FeedbackModal from "@/components/FeedbackModal.vue";
+import feedbackService from "@/services/feedback";
 
 export default {
-  name: 'Home',
-  components: { FontAwesomeIcon },
+  name: "Home",
+
+  components: { 
+    FontAwesomeIcon, 
+    FeedbackModal 
+  },
+
   data() {
     return {
-      icons: {
-        article: faBookOpen,
-        progress: faChartColumn,
-        recommendation: faWandSparkles,
-        history: faClipboardList,
-        chat: faComments,
-        feedback: faCircleCheck,
-        professional: faBriefcase,
-        student: faGraduationCap,
-        heart: faHeart,
-      },
-    }
+      iconCards: [
+        { icon: faBookOpen, title: "Artikel Kesehatan", desc: "Baca artikel nutrisi." },
+        { icon: faChartColumn, title: "Progress Nutrisi", desc: "Pantau kalori harian." },
+        { icon: faWandSparkles, title: "Rekomendasi Personal", desc: "Menu makanan personal." },
+        { icon: faClipboardList, title: "Riwayat Kesehatan", desc: "Catatan kesehatan lengkap." },
+        { icon: faComments, title: "Konsultasi / Chatbot", desc: "Tanya jawab nutrisi." },
+        { icon: faCircleCheck, title: "Feedback Berkala", desc: "Evaluasi progress." },
+      ],
+
+      feedbackAll: [],
+      showFeedbackModal: false,
+    };
   },
-}
+
+  computed: {
+    isAuthenticated() {
+      return useAuthStore().isAuthenticated;
+    },
+    feedbackList() {
+      return this.feedbackAll.slice(0, 3);
+    },
+  },
+
+  methods: {
+    openFeedbackModal() {
+      this.showFeedbackModal = true;
+    },
+
+    async sendFeedback(payload) {
+      await feedbackService.create(payload);
+      await this.loadFeedback();
+    },
+
+    async loadFeedback() {
+      const res = await feedbackService.getAll();
+      this.feedbackAll = Array.isArray(res.data) ? res.data : [];
+    },
+
+    formatDate(date) {
+      return new Date(date).toLocaleDateString("id-ID", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric",
+      });
+    },
+  },
+
+  async mounted() {
+    await this.loadFeedback();
+  },
+};
 </script>
+
+<style>
+.scrollbar-hidden::-webkit-scrollbar { display: none; }
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out;
+}
+</style>
