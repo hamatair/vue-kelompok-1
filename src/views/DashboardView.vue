@@ -1,12 +1,50 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue' // Tambahkan onMounted
 import { useRouter } from 'vue-router'
 import { useArticleStore } from '@/stores/articleStore.js'
+import { useCategoryStore } from '@/stores/categoryStore.js' // Import Category Store
 
 const router = useRouter()
 const articleStore = useArticleStore()
+const categoryStore = useCategoryStore() // Init Store
 
 const articles = computed(() => articleStore.articles)
+
+// 1. Fetch Data saat halaman dibuka (Artikel & Kategori)
+onMounted(async () => {
+  await Promise.all([
+  articleStore.fetchArticles({ all: true }),
+  categoryStore.fetchCategories()
+  ])
+})
+
+// 2. Helper: Mendapatkan Nama Kategori dari ID/Object
+const getCategoryName = (article) => {
+  // Cek jika article.category adalah Object (sudah ada nama)
+  if (article.category && typeof article.category === 'object' && article.category.name) {
+    return article.category.name
+  }
+
+  // Cek ID (bisa dari category_id atau category itu sendiri jika angka)
+  let id = article.category_id
+  if (!id && (typeof article.category === 'number' || (typeof article.category === 'string' && !isNaN(article.category)))) {
+    id = article.category
+  } else if (!id && article.category && typeof article.category === 'object') {
+    id = article.category.id
+  }
+
+  // Cari di store
+  if (id) {
+    // Gunakan '==' agar string "1" cocok dengan angka 1
+    const found = categoryStore.categories.find(c => c.id == id)
+    if (found) return found.name
+  }
+
+  // Fallback: Jika backend mengirim string nama langsung
+  if (typeof article.category === 'string') return article.category
+
+  return 'Uncategorized'
+}
 
 const editArticle = (id) => {
   router.push(`/admin/article/edit/${id}`)
@@ -14,7 +52,7 @@ const editArticle = (id) => {
 
 const deleteArticle = (id) => {
   if (confirm('Are you sure you want to delete this article?')) {
-    articleStore.deleteArticle(id)
+    articleStore.deleteArticle(id) // Pastikan nama action di store benar (removeArticle vs deleteArticle)
   }
 }
 
@@ -151,8 +189,13 @@ const goToConsultations = () => {
               >
                 <td class="px-6 py-4 text-gray-400">#{{ article.id }}</td>
                 <td class="px-6 py-4 font-medium text-gray-900">{{ article.title }}</td>
-                <td class="px-6 py-4 text-gray-600">{{ article.category }}</td>
-                <td class="px-6 py-4 text-gray-600">{{ formatDate(article.date) }}</td>
+                
+                <!-- FIX: Gunakan Helper getCategoryName -->
+                <td class="px-6 py-4 text-gray-600">
+                  {{ getCategoryName(article) }}
+                </td>
+
+                <td class="px-6 py-4 text-gray-600">{{ formatDate(article.created_at || article.date) }}</td>
                 <td class="px-6 py-4">
                   <!-- Badge Status -->
                   <span
