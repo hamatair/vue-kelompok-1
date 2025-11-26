@@ -77,7 +77,7 @@
 
         <div class="mt-4">
           <div class="font-semibold">Activity Level</div>
-          <div class="text-gray-700">{{ user.activity }}</div>
+          <div class="text-gray-700">{{ activityLabel }}</div>
         </div>
       </div>
 
@@ -102,4 +102,20 @@ const profilePhoto = computed(() => {
   if (user.value.photo_url) return "/storage/" + user.value.photo_url
   return "https://i.pravatar.cc/150?img=12"
 })
+
+/* ACTIVITY LEVEL ALIAS TANPA UNDERSCORE */
+const activityLabel = computed(() => {
+  if (!user.value?.activity) return "-"
+
+  const map = {
+    jarang: "Jarang",
+    olahraga_ringan: "Olahraga Ringan",
+    olahraga_sedang: "Olahraga Sedang",
+    olahraga_berat: "Olahraga Berat",
+    sangat_berat: "Sangat Berat"
+  }
+
+  return map[user.value.activity] || user.value.activity.replace(/_/g, " ")
+})
 </script>
+

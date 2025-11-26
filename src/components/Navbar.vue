@@ -16,6 +16,14 @@
     <!-- MENU USER -->
     <div v-if="isAuthenticated" class="relative" ref="menuRef">
       <div class="cursor-pointer flex items-center gap-2 font-semibold">
+      <router-link
+          v-if="user.role == 'admin'"
+          @click="closeMenu"
+          to="/dashboard-view"
+          class="hover:text-orange-light"
+        >
+          Dashboard
+        </router-link>
         <div @click="toggleMenu" class="flex items-center gap-2">
           <img
             :src="user.photo_url ? '/storage/' + user.photo_url : fallbackPhoto"
